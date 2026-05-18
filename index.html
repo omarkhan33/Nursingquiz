@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nursing Exam Hub - Swat Region</title>
+    <style>
+        :root {
+            --primary: #0070f3;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #1f2937;
+            --light: #f3f4f6;
+            --border: #e5e7eb;
+            --accent: #7c3aed;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            margin: 0;
+            padding: 20px;
+            color: var(--dark);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        h1, h2, h3 { text-align: center; color: var(--primary); margin-top: 0; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 30px; }
+        
+        .ad-space {
+            background: #e5e7eb;
+            text-align: center;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #666;
+            border: 1px dashed #9ca3af;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .card {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 112, 243, 0.1);
+        }
+        .card h3 { margin: 10px 0; color: #111; }
+        .card p { font-size: 0.9rem; color: #666; margin: 0; }
+        
+        .back-btn {
+            background: #4b5563;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .back-btn:hover { background: #374151; }
+
+        .dynamic-view { display: none; }
+        .active-view { display: block; }
+
+        .question { font-size: 1.2rem; font-weight: 600; margin-bottom: 20px; line-height: 1.5; }
+        .options-list { list-style: none; padding: 0; }
+        .option-btn {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 12px;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            text-align: left;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-btn:hover:not([disabled]) { border-color: var(--primary); background: #f0f7ff; }
+        .correct { background: #dcfce7 !important; border-color: var(--success) !important; color: #14532d; font-weight: 600; }
+        .wrong { background: #fee2e2 !important; border-color: var(--danger) !important; color: #7f1d1d; }
+        .explanation { margin-top: 15px; padding: 15px; background: #eff6ff; border-left: 4px solid var(--primary); border-radius: 4px; display: none; line-height: 1.4; }
+        
+        .quiz-actions { display: flex; gap: 15px; margin-top: 20px; }
+        .btn { flex: 1; padding: 12px; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        .action-next { background: var(--primary); color: white; }
+        .action-next:hover { background: #0056b3; }
+        .action-skip { background: #e5e7eb; color: #4b5563; border: 1px solid #d1d5db; }
+        .action-skip:hover { background: #d1d5db; }
+        
+        #view-results { text-align: center; }
+        .feedback-note { font-size: 1.3rem; font-weight: bold; color: var(--primary); margin: 15px 0 25px 0; padding: 10px; background: #f0f7ff; border-radius: 8px; border-inline-start: 5px solid var(--primary); }
+        .stats-row { display: flex; justify-content: space-around; margin: 20px 0; gap: 10px; }
+        .stat-box { flex: 1; padding: 15px; border-radius: 8px; background: #f9fafb; border: 1px solid var(--border); }
+        .stat-num { font-size: 1.8rem; font-weight: bold; }
+        .stat-box.pos { color: var(--success); }
+        .stat-box.neg { color: var(--danger); }
+        .stat-box.neu { color: var(--warning); }
+
+        /* FUN FEATURES STYLING */
+        .fun-section {
+            margin-top: 40px;
+            padding: 20px;
+            background: #fbfbfe;
+            border: 2px solid #e0e7ff;
+            border-radius: 12px;
+        }
+        .fun-title { color: var(--accent); font-size: 1.25rem; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 15px; font-weight: bold; }
+        .fun-widget {
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .fun-widget p { margin: 0 0 10px 0; font-size: 0.95rem; font-weight: bold; color: #374151; }
+        .input-row { display: flex; gap: 10px; }
+        .fun-input { flex: 1; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; }
+        .fun-btn { background: var(--accent); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9rem; }
+        .fun-btn:hover { background: #6d28d9; }
+        .checklist-item { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; font-size: 0.9rem; text-align: left; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <button class="back-btn" id="back-button" onclick="goBack()">← Back</button>
+        
+        <div id="header-area">
+            <h1 id="main-title">Nursing Exam Hub</h1>
+            <p class="subtitle" id="main-subtitle">Select a category to start practicing and reading notes</p>
+        </div>
+
+        <div class="ad-space">▲ Google AdSense Banner Placement Area ▲</div>
+
+        <div id="view-main" class="dynamic-view active-view">
+            <div class="grid">
+                <div class="card" onclick="navigateTo('view-regions')">
+                    <h3>📄 Past Papers</h3>
+                    <p>Swat Board regional past examination modules.</p>
+                </div>
+                <div class="card" onclick="alert('Notes section coming soon!')">
+                    <h3>📚 Study Notes</h3>
+                    <p>Short summaries, pharmacology tips & fast review.</p>
+                </div>
+                <div class="card" onclick="alert('NCLEX section coming soon!')">
+                    <h3>🏥 NCLEX MCQs</h3>
+                    <p>Advanced licensing practice questions.</p>
+                </div>
+            </div>
+
+            <div class="fun-section">
+                <div class="fun-title">⚡ Student Brain Break Station (Just For Fun!)</div>
+                
+                <div class="fun-widget">
+                    <p>💪 Calisthenics Break: Log Your Reps!</p>
+                    <div class="input-row">
+                        <input type="number" id="reps-input" class="fun-input" placeholder="How many Pull-ups / L-sits done?">
+                        <button class="fun-btn" onclick="logWorkout()">Log Reps</button>
+                    </div>
+                    <div id="workout-log-msg" style="font-size: 0.85rem; color: #22c55e; margin-top: 8px; font-weight: bold;"></div>
+                </div>
+
+                <div class="fun-widget">
+                    <p>🎬 Content Creator Break: Quick Video Idea</p>
+                    <button class="fun-btn" style="width: 100%; background: #000;" onclick="generateVideoIdea()">Get a 7-Day Challenge Video Prompt</button>
+                    <div id="video-idea-box" style="font-size: 0.9rem; font-style: italic; color: #4b5563; margin-top: 10px; font-weight: 500; text-align: center;"></div>
+                </div>
+
+                <div class="fun-widget">
+                    <p>🪙 Quick Crypto Trade Quiz</p>
+                    <span style="font-size:0.9rem; color:#4b5563;">If funding rates are deeply <b>Negative</b>, who pays whom?</span>
+                    <div class="input-row" style="margin-top:8px;">
+                        <button class="fun-btn" style="background:#ef4444; font-size:0.8rem;" onclick="checkCrypto(false)">Longs pay Shorts</button>
+                        <button class="fun-btn" style="background:#22c55e; font-size:0.8rem;" onclick="checkCrypto(true)">Shorts pay Longs</button>
+                    </div>
+                    <div id="crypto-ans" style="font-size: 0.85rem; margin-top: 8px; font-weight: bold;"></div>
+                </div>
+
+                <div class="fun-widget">
+                    <p>🧴 Student Skincare & Hygiene Checklist</p>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="skin1"> <label for="skin1">Sunblock applied (Protects skin during day wear)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="skin2"> <label for="skin2">Active Serums / Mandelic Acid routine check</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-regions" class="dynamic-view">
+            <h2>Select Division</h2>
+            <div class="grid">
+                <div class="card" onclick="selectRegion('swat')">
+                    <h3>⛰️ Swat Region Papers</h3>
+                    <p>Official papers collected from Swat nursing institutes.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-years" class="dynamic-view">
+            <h2 id="years-title">Select Year</h2>
+            <div class="grid">
+                <div class="card" onclick="selectYear('2024')">
+                    <h3>📅 2024 (Fall Session)</h3>
+                    <p>View authentic subject papers from the 2024 board term.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-subjects" class="dynamic-view">
+            <h2 id="subjects-title">Select Subject</h2>
+            <div class="grid">
+                <div class="card" onclick="startQuiz('fon')">
+                    <h3>🧪 Fundamentals of Nursing - I (FON)</h3>
+                    <p>Complete 34 Official Past Paper MCQs (Q1 - Q34).</p>
+                </div>
+                <div class="card" onclick="startQuiz('anatomy')">
+                    <h3>🫁 Anatomy & Physiology</h3>
+                    <p>Complete 16 Official Past Paper MCQs (Q35 - Q50).</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-quiz" class="dynamic-view">
+            <h2 id="quiz-title">Quiz Module</h2>
+            <div class="question" id="question-text">Loading question...</div>
+            <div class="options-list" id="options-container"></div>
+            <div class="explanation" id="explanation-box"></div>
+            <div class="quiz-actions">
+                <button class="btn action-skip" id="skip-button" onclick="skipQuestion()">Skip This Question ↷</button>
+                <button class="btn action-next" id="next-button" style="display: none;" onclick="nextQuestion()">Next Question →</button>
+            </div>
+        </div>
+
+        <div id="view-results" class="dynamic-view">
+            <h2>Performance Report</h2>
+            <div class="feedback-note" id="feedback-message">Analyzing score...</div>
+            <div class="stats-row">
+                <div class="stat-box pos">
+                    <div class="stat-num" id="stat-correct">0</div>
+                    <div>Correct</div>
+                </div>
+                <div class="stat-box neg">
+                    <div class="stat-num" id="stat-wrong">0</div>
+                    <div>Wrong</div>
+                </div>
+                <div class="stat-box neu">
+                    <div class="stat-num" id="stat-skipped">0</div>
+                    <div>Skipped</div>
+                </div>
+            </div>
+            <button class="btn action-next" style="width:100%; max-width:300px; margin-top:20px;" onclick="returnToDashboard()">Return to Main Menu</button>
+        </div>
+
+        <div class="ad-space">▼ Google AdSense Banner Placement Area ▼</div>
+    </div>
+
+<script>
+    const quizDatabase = {
+        swat: {
+            "2024": {
+                fon: [
+                    { question: "A nurse identifies a loose electrical wire near a patient's bed. What type of hazard is this?", options: ["Psychological", "Physical", "Personal", "Biological"], correct: 1, explanation: "Loose electrical wiring represents an environmental risk factor capable of causing bodily harm or fire, placing it under physical hazards." },
+                    { question: "A health care team is considering the implications of the WHO's definition of nursing. Which core principle should they focus on?", options: ["Management of chronic diseases", "Research-based practice", "Educating the populace on nutrition", "Promotion of health and prevention of illness"], correct: 3, explanation: "The World Health Organization (WHO) definition emphasizes holistic care, centered prominently on health promotion, maintenance, and illness prevention." },
+                    { question: "A nursing student learns that the community expects nurses to perform holistically, addressing physical, emotional, and spiritual needs. This understanding aligns with:", options: ["Nightingale's focus on environment", "Henderson's definition of independence", "The traditional clinical skills", "Watson's caring theory"], correct: 3, explanation: "Jean Watson's Caring Theory focuses on a holistic view of human beings, incorporating physical, emotional, and spiritual elements into patient healing." },
+                    { question: "According to Maslow's Hierarchy of Needs, which of the following is NOT included in the esteem or self-esteem needs?", options: ["Achievement", "Reputation", "Self-respect", "Nutritious food"], correct: 3, explanation: "Nutritious food is a physiological need, which forms the foundational base of Maslow's hierarchy, not an esteem need." },
+                    { question: "A patient in lateral position is most at risk for ulcers on the:", options: ["Greater trochanter", "Sacrum", "Occiput", "Scapula"], correct: 0, explanation: "In a side-lying (lateral) position, the greatest localized bony pressure is placed over the greater trochanter of the hip." },
+                    { question: "A patient with heart failure has a pulse pressure of 20 mmHg. How would the nurse interpret this?", options: ["Unmeasurable", "Widened", "Narrowed", "Normal"], correct: 2, explanation: "Normal pulse pressure is roughly 30-40 mmHg. A lower pulse pressure (like 20 mmHg) indicates a narrowed pulse pressure, common in heart failure." },
+                    { question: "Which of the following is NOT a role of a nurse?", options: ["Client advocate", "Teacher", "Technician", "Counselor"], correct: 2, explanation: "While nurses handle medical machinery daily, their professional definitions cover advocacy, education, and counseling roles rather than a pure technician designation." },
+                    { question: "A nurse is helping a patient understand wound care after discharge. Which method ensures understanding?", options: ["Giving verbal instructions", "Handing written notes", "Showing a video", "Teach-back method"], correct: 3, explanation: "The Teach-Back method is the gold standard assessment tool where patients explain or demonstrate instructions back to confirm exact comprehension." },
+                    { question: "After a student successfully inserts an IV cannula, the clinical instructor offers praise. This is an example of:", options: ["Practice", "Motivation", "Reinforcement", "Feedback"], correct: 2, explanation: "Praise functions as positive reinforcement, which rewards a specific correct behavior to ensure the student repeats it accurately in future practice." },
+                    { question: "A nurse advises a patient to bend their elbow. What joint movement is this?", options: ["Flexion", "Extension", "Supination", "Abduction"], correct: 0, explanation: "Flexion decreases the angle between two articulating bones, such as bending the elbow joint." },
+                    { question: "Which symptom is common in a person having a heart attack?", options: ["Headache only", "Abdominal pain only", "Chest pain", "Leg cramps"], correct: 2, explanation: "Classic acute myocardial infarction (heart attack) presents with crushing substernal chest pain that can radiate to the arm or jaw." },
+                    { question: "Which factor affects balance by providing a wider base of support?", options: ["Center of gravity", "Muscle tone", "Base of support", "Line of gravity"], correct: 2, explanation: "Spreading the feet apart directly widens the base of support, stabilizing structural balance." },
+                    { question: "What is the purpose of the 'Teach-Back Method'?", options: ["Correct medication errors only", "Teach staff new skills", "Confirm patient understanding", "Teach family members only"], correct: 2, explanation: "The main purpose of Teach-Back is checking safety metrics by confirming that the patient understands their care plan." },
+                    { question: "What differentiates nursing from an occupation pursued primarily for profit?", options: ["Specialized education", "Profit orientation", "Autonomy", "Service orientation"], correct: 3, explanation: "A true profession is defined by its core service orientation, prioritizing altruistic welfare and patient care over profit lines." },
+                    { question: "A patient lying flat starts choking on oral secretions. What is the immediate nursing action?", options: ["Turn to lateral position", "Give bronchodilator", "Offer water", "Give oxygen"], correct: 0, explanation: "Turning the patient to a side-lying (lateral) position instantly uses gravity to clear secretions and protect the airway from aspiration." },
+                    { question: "Which environmental factor can hinder mobility?", options: ["Slippery floors", "Proper assistive devices", "Safe surroundings", "Accessible furniture"], correct: 0, explanation: "Slippery floors create a direct physical hazard that increases fall risks, hindering a patient's safe mobility." },
+                    { question: "A nurse practicing in Pakistan is advocating for better staffing as per PNC recommendations. What is their main concern?", options: ["Shortage of nurses leading to high workload", "workload Lack of modern equipment", "Excess of trained nurses in rural areas", "Overstaffing nursing units"], correct: 0, explanation: "The Pakistan Nursing Council (PNC) outlines strict nurse-to-patient ratios to combat high staff shortages and heavy workloads." },
+                    { question: "A patient recovering from surgery has a core body temperature of 35°C (95°F). What is this condition called?", options: ["Hyperthermia", "Pyrexia", "Hypothermia", "Heat stroke"], correct: 2, explanation: "A core body temperature falling below 35°C (95°F) is clinically defined as hypothermia." },
+                    { question: "What is the first step in hospital admission?", options: ["Initial assessment", "Patient transfer", "Medication administration", "Discharge planning"], correct: 0, explanation: "Hospital admission processes always begin with an initial nursing assessment to establish vital baselines and identify urgent needs." },
+                    { question: "Which characteristic of normal body movement ensures joint flexibility?", options: ["Muscle Tone", "Gait", "Range of Motion (ROM)", "Posture"], correct: 2, explanation: "Range of Motion (ROM) is the specific degree of movement potential a joint possesses, ensuring baseline flexibility." },
+                    { question: "Which of the following roles allows nurses to provide primary care services independently?", options: ["Nurse Assistant", "Nurse Administrator", "Nurse Practitioner", "Staff Nurse"], correct: 2, explanation: "Nurse Practitioners (NPs) possess advanced degrees allowing them to examine patients, diagnose conditions, and prescribe medications independently." },
+                    { question: "A teacher uses group discussion to encourage learners to explore and solve problems. What type of teaching is this?", options: ["Primary", "Lecture", "Direct", "Indirect"], correct: 3, explanation: "Indirect teaching is learner-centered, utilizing activities like discussions or case studies to guide students toward independent problem-solving." },
+                    { question: "Nursing is the 'diagnosis and Treatment of human response to actual and potential health problems'. This definition is given by", options: ["PNA", "PNC", "ICN", "ANA"], correct: 3, explanation: "The American Nurses Association (ANA) formulated this official baseline definition to establish clear professional boundaries for modern nursing." },
+                    { question: "Which device is commonly used to give oxygen to patients?", options: ["Serum IV", "Thermometer", "Blood pressure cuff", "Nasal cannula"], correct: 3, explanation: "A nasal cannula is a two-pronged lightweight plastic device inserted into the nostrils to deliver supplemental oxygen." },
+                    { question: "Which technique is considered an interfering technique in therapeutic communication?", options: ["Empathy Statements", "Silence", "Judgmental Responses", "Reflective Responses"], correct: 2, explanation: "Giving judgmental responses cuts off open communication by making the patient feel defensive, breaking down the therapeutic connection." },
+                    { question: "What should a nurse do first if a patient has trouble breathing?", options: ["Check the patient's airway and comfort", "Give the patient a glass of water", "Turn the patient to the side", "Call the doctor only"], correct: 0, explanation: "Following emergency nursing priorities (ABCs), verifying airway patency and maximizing thoracic expansion comes before all other actions." },
+                    { question: "A patient is worried and disoriented after hospital admission. What should the nurse do first?", options: ["Orient the patient", "Call family", "Begin discharge planning", "Start medication"], correct: 0, explanation: "Providing immediate, clear reorientation to time, place, and surroundings lowers acute anxiety and keeps the patient safe." },
+                    { question: "Which factor can limit mobility due to fear of falling?", options: ["Adequate nutrition", "High bone density", "Muscle strength", "Lack of confidence"], correct: 3, explanation: "A psychological lack of confidence or anxiety about falls directly limits a patient's willingness to ambulate independently." },
+                    { question: "A patient's blood pressure drops from 120/80 mmHg to 90/60 mmHg upon standing. What is this condition called?", options: ["Kussmaul's respiration", "Hypertension", "Orthostatic hypotension", "Pulse pressure deficit"], correct: 2, explanation: "Orthostatic (or postural) hypotension is a significant drop in blood pressure that occurs when moving to an upright position." },
+                    { question: "A nurse assesses a patient's radial pulse as weak and difficult to palpate. How should this be documented?", options: ["Regular", "Absent", "Thready", "Bounding"], correct: 2, explanation: "A rapid, faint pulse that is easily obliterated with light finger pressure is documented as thready." },
+                    { question: "A patient in a wheelchair has not been repositioned for several hours. The nurse notices a risk for pressure ulcers. How often should the patient shift position to prevent bed sores?", options: ["Every 8 hours", "Once daily", "Every 15 minutes", "Every 4 hours"], correct: 2, explanation: "While bedbound individuals require turning every 2 hours, wheelchair-bound patients experience higher pressure over ischial structures and should shift weight every 15 minutes." },
+                    { question: "Which health care team member is responsible for dispensing medications?", options: ["Physician", "Social Worker", "Nurse", "Pharmacist"], correct: 3, explanation: "Pharmacists are licensed to compound and dispense ordered medical drugs safely, while the nurse's role focuses on safe administration." },
+                    { question: "What is the process of converting the message into symbols, words, or gestures called?", options: ["Channeling", "Encoding", "Feedback", "Decoding"], correct: 1, explanation: "Encoding is the communication process where the sender transforms thoughts or information into transmittable words, symbols, or behaviors." },
+                    { question: "Which WBC produces antibodies?", options: ["NK cells", "B-lymphocytes", "Basophils", "Monocytes"], correct: 1, explanation: "B-lymphocytes mature into plasma cells, which are directly responsible for synthesizing and secreting custom protective antibodies." }
+                ],
+                anatomy: [
+                    { question: "Which joint is an example of a hinge joint?", options: ["Hip", "Knee", "Skull suture", "Shoulder"], correct: 1, explanation: "The knee and elbow joints act as classic mechanical hinge joints, limiting movement mostly to extension and flexion." },
+                    { question: "The Quadrant that is largely responsible for digestion is", options: ["Left upper Quadrant", "Right upper Quadrant", "Right lower Quadrant", "Left lower Quadrant"], correct: 0, explanation: "The Left Upper Quadrant (LUQ) holds the body of the stomach and the tail of the pancreas, which drive primary digestive processes." },
+                    { question: "The first heart sound is caused by:", options: ["Closure of AV valves", "Opening of semilunar valves", "Ventricular diastole", "Atrial systole"], correct: 0, explanation: "The 'lub' sound (S1) signals the mechanical closure of the atrioventricular (mitral and tricuspid) valves during early ventricular contraction." },
+                    { question: "Which of the following bones contributes to the orbit (eye socket)?", options: ["Patella", "Tibia", "Femur", "Ethmoid"], correct: 3, explanation: "The ethmoid bone forms a portion of the medial wall of the orbital cavity, along with the lacrimal, frontal, and sphenoid structures." },
+                    { question: "Which trunk drains lymph from the stomach and intestines?", options: ["Intestinal", "Bronchomediastinal", "Subclavian", "Jugular"], correct: 0, explanation: "The intestinal lymphatic trunk processes all fatty chyle and structural fluids returning from abdominal digestive tracts." },
+                    { question: "Which Tarsal bone form heel and is the largest of the tarsal bones?", options: ["calcaneus", "Navicular", "cuboid", "Talus"], correct: 0, explanation: "The calcaneus bone forms the prominent structural shape of the human heel and anchors the strong Achilles tendon." },
+                    { question: "The following activities occur in prophase of mitosis except:", options: ["Movement of chromosomes", "Pairing of homologous chromosomes", "Forming of spindle fibers", "Condensation of chromatin material"], correct: 1, explanation: "The pairing of homologous chromosomes occurs during Prophase I of Meiosis, not standard somatic cell Mitosis." },
+                    { question: "The hepatic portal vein carries:", options: ["Lymph", "Hormones from pancreas", "Oxygenated blood from liver", "Nutrient-rich blood from GIT"], correct: 3, explanation: "The hepatic portal system channels deoxygenated but highly nutrient-rich blood from the gastrointestinal tract directly into liver tissues for processing." },
+                    { question: "The site which is commonly used for immunization/injections in infants is", options: ["Vastus Intermedius", "Vastus Medialis", "Rectus Femoris", "Vastus Lateralis"], correct: 3, explanation: "The anterolateral thigh muscle (vastus lateralis) is the preferred intramuscular injection site for infants because it lacks major nerve trunks." },
+                    { question: "The thoracic cavity is separated from the abdominal cavity by which structure?", options: ["Pelvic brim", "Pelvic diaphragm", "Mediastinum", "Diaphragm"], correct: 3, explanation: "The diaphragm is a broad dome-shaped muscular sheet that separates the thoracic and abdominal cavities." },
+                    { question: "Blood group O can safely donate to:", options: ["All groups", "AB only", "A and B only", "Only O"], correct: 0, explanation: "Type O blood lacks both A and B surface antigens, making it safe to give to anyone (universal donor) without triggering an immune response." },
+                    { question: "Which connective tissue type is characterized by a solid, dense matrix with collagen fibers arranged in parallel bundles", options: ["Blood", "Areolar connective tissue", "Hyaline cartilage", "Dense regular connective tissue"], correct: 3, explanation: "Dense regular connective tissue features closely packed parallel arrays of collagen, forming high tensile structures like tendons." },
+                    { question: "The dermis layer of skin consist of _____ sub layers", options: ["4", "3", "2", "5"], correct: 2, explanation: "The structural dermis is composed of exactly two distinct sublayers: the upper papillary layer and the deep reticular layer." },
+                    { question: "Which blood type has no antigens", options: ["O", "B", "AB", "A"], correct: 0, explanation: "Blood type O is identified by the absolute absence of both A and B marker antigens on erythrocyte cellular surfaces." },
+                    { question: "Which of the following correctly describes the composition of connective tissue?", options: ["Epithelial cells and a basement membrane", "Cell membranes, cytoplasm, and nucleus", "Only cells with no extracellular matrix", "Cells, ground substance, and fibers"], correct: 3, explanation: "All structural connective tissue blends distinct specialized cells inside an extracellular matrix built out of ground substance and protein fibers." },
+                    { question: "The rugae of the stomach are", options: ["Secretory glands", "Muscles that churn food", "Folds that disappear when stomach is full", "Folds that increase surface area for absorption"], correct: 2, explanation: "Rugae are macroscopic internal mucosal folds that allow the stomach to stretch and expand as it fills with food." }
+                ]
+            }
+        }
+    };
+
+    let chosenRegion = "";
+    let chosenYear = "";
+    let currentQuizPool = [];
+    let currentQuestionIndex = 0;
+    let scoreCorrect = 0;
+    let scoreWrong = 0;
+    let scoreSkipped = 0;
+    let hasAnswered = false;
+    let viewHistory = ['view-main'];
+
+    function navigateTo(viewId) {
+        document.querySelectorAll('.dynamic-view').forEach(v => v.classList.remove('active-view'));
+        document.getElementById(viewId).classList.add('active-view');
+        document.getElementById('back-button').style.display = (viewId === 'view-main') ? 'none' : 'block';
+        if (viewHistory[viewHistory.length - 1] !== viewId) viewHistory.push(viewId);
+    }
+
+    function selectRegion(regionKey) {
+        chosenRegion = regionKey;
+        document.getElementById('years-title').innerText = "Swat Region - Select Year";
+        navigateTo('view-years');
+    }
+
+    function selectYear(yearKey) {
+        chosenYear = yearKey;
+        document.getElementById('subjects-title').innerText = "Swat Papers (" + yearKey + ") - Subjects";
+        navigateTo('view-subjects');
+    }
+
+    function startQuiz(subjectKey) {
+        currentQuizPool = quizDatabase[chosenRegion][chosenYear][subjectKey];
+        currentQuestionIndex = 0;
+        scoreCorrect = 0;
+        scoreWrong = 0;
+        scoreSkipped = 0;
+        let titleText = subjectKey === 'fon' ? "FON - I" : "Anatomy & Physiology";
+        document.getElementById('quiz-title').innerText = titleText + " (" + chosenYear + ")";
+        navigateTo('view-quiz');
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        hasAnswered = false;
+        document.getElementById("skip-button").style.display = "block";
+        document.getElementById("next-button").style.display = "none";
+        document.getElementById("explanation-box").style.display = "none";
+        let currentData = currentQuizPool[currentQuestionIndex];
+        
+        // Exact global question numbering match
+        let displayedNum = currentQuestionIndex + 1;
+        if(chosenRegion === 'swat' && quizDatabase.swat["2024"].anatomy.includes(currentData)) {
+            displayedNum = currentQuestionIndex + 35; // Shifts Anatomy to Q35 - Q50
+        }
+
+        document.getElementById("question-text").innerText = `${displayedNum}. ${currentData.question}`;
+        let optionsContainer = document.getElementById("options-container");
+        optionsContainer.innerHTML = "";
+        currentData.options.forEach((option, index) => {
+            let button = document.createElement("button");
+            button.className = "option-btn";
+            button.innerText = option;
+            button.onclick = () => checkAnswer(index, button);
+            optionsContainer.appendChild(button);
+        });
+    }
+
+    function checkAnswer(selectedIndex, clickedButton) {
+        if (hasAnswered) return;
+        hasAnswered = true;
+        document.getElementById("skip-button").style.display = "none";
+        let currentData = currentQuizPool[currentQuestionIndex];
+        let correctIndex = currentData.correct;
+        let allButtons = document.querySelectorAll(".option-btn");
+        allButtons.forEach(btn => btn.disabled = true);
+        if (selectedIndex === correctIndex) {
+            clickedButton.classList.add("correct");
+            scoreCorrect++;
+        } else {
+            clickedButton.classList.add("wrong");
+            allButtons[correctIndex].classList.add("correct");
+            scoreWrong++;
+        }
+        let expBox = document.getElementById("explanation-box");
+        expBox.innerText = "Explanation: " + currentData.explanation;
+        expBox.style.display = "block";
+        document.getElementById("next-button").style.display = "block";
+    }
+
+    function skipQuestion() {
+        scoreSkipped++;
+        nextQuestion();
+    }
+
+    function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < currentQuizPool.length) {
+            loadQuestion();
+        } else {
+            showResults();
+        }
+    }
+
+    function showResults() {
+        navigateTo('view-results');
+        document.getElementById("stat-correct").innerText = scoreCorrect;
+        document.getElementById("stat-wrong").innerText = scoreWrong;
+        document.getElementById("stat-skipped").innerText = scoreSkipped;
+        let percentage = (scoreCorrect / currentQuizPool.length) * 100;
+        let note = "";
+        if (percentage === 100) note = "🏆 Perfect Score! Master-level knowledge.";
+        else if (percentage >= 80) note = "🌟 Great Job! Highly solid grip on this exam.";
+        else if (percentage >= 50) note = "📖 Good Attempt! Review your errors to score higher.";
+        else note = "⚠️ Try Harder! Read the explanations and retry.";
+        document.getElementById("feedback-message").innerText = note;
+    }
+
+    function returnToDashboard() {
+        viewHistory = ['view-main'];
+        navigateTo('view-main');
+    }
+
+    function goBack() {
+        if (viewHistory.length <= 1) return;
+        viewHistory.pop();
+        let previousView = viewHistory[viewHistory.length - 1];
+        document.querySelectorAll('.dynamic-view').forEach(v => v.classList.remove('active-view'));
+        document.getElementById(previousView).classList.add('active-view');
+        document.getElementById('back-button').style.display = (previousView === 'view-main') ? 'none' : 'block';
+    }
+
+    /* BONUS STATION SCRIPTS */
+    function logWorkout() {
+        let val = document.getElementById("reps-input").value;
+        if(val) {
+            document.getElementById("workout-log-msg").innerText = "💥 Boom! " + val + " reps logged. Consistent clean movement clears the brain!";
+            document.getElementById("reps-input").value = "";
+        }
+    }
+
+    function generateVideoIdea() {
+        const prompts = [
+            "🎥 Day 1 of 7-Day Mobile Phone Detox: Record your immediate reaction, feelings of phantom vibrations, and study focus changes.",
+            "🎥 Mid-Challenge Vlog: Film the setup of your clean study space and your home callisthenics setup. Show how you spend your extra free hours.",
+            "🎥 The 7-Day Results: Breakdown how your sleep cycles, skin focus, and textbook memorization speed skyrocketed without scrolling fatigue.",
+            "🎥 Study Hack Video: Explain one tricky Anatomy MCQ layout visually to your audience using simple text layouts."
+        ];
+        let randomPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+        document.getElementById("video-idea-box").innerText = randomPrompt;
+    }
+
+    function checkCrypto(isShortsPay) {
+        let ansBox = document.getElementById("crypto-ans");
+        if(isShortsPay) {
+            ansBox.style.color = "#22c55e";
+            ansBox.innerText = "🎯 Correct! When funding rates are negative, short positions pay long positions directly to balance out leverage.";
+        } else {
+            ansBox.style.color = "#ef4444";
+            ansBox.innerText = "❌ Incorrect. If rates are deeply negative, the shorts are too aggressive and they have to pay the longs!";
+        }
+    }
+</script>
+</body>
+</html>
