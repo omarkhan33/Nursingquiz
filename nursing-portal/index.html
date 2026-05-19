@@ -3,39 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nursing Past Papers Portal</title>
+    <title>KPK Nursing Past Papers Portal</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="container">
-        <!-- Header Section -->
         <header>
-            <h1>Nursing Past Papers Portal</h1>
-            <p>Select a subject to test your knowledge</p>
+            <h1>KPK Nursing Past Papers Portal</h1>
+            <p>Select your region and year to begin practicing</p>
         </header>
 
-        <!-- Home Screen: Subject Selection -->
         <div id="home-screen" class="card">
-            <h2>Available Past Papers</h2>
-            <div class="subject-grid">
-                <button class="btn-subject" onclick="startQuiz('fon')">Fundamentals of Nursing (FON)</button>
-                <button class="btn-subject" onclick="startQuiz('anatomy')">Anatomy & Physiology</button>
+            <h2>Select Past Paper</h2>
+            
+            <div class="filter-group">
+                <label for="region-select">Choose Region:</label>
+                <select id="region-select" class="dropdown">
+                    <option value="swat">Swat Region</option>
+                    <option value="peshawar">Peshawar Region</option>
+                </select>
             </div>
+
+            <div class="filter-group">
+                <label for="year-select">Choose Year:</label>
+                <select id="year-select" class="dropdown">
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="subject-select">Choose Subject:</label>
+                <select id="subject-select" class="dropdown">
+                    <option value="fon">Fundamentals of Nursing (FON)</option>
+                    <option value="anatomy">Anatomy & Physiology</option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary start-btn" onclick="initiateQuiz()">Start Past Paper</button>
         </div>
 
-        <!-- Quiz Screen: Initially Hidden -->
         <div id="quiz-screen" class="card hidden">
             <div class="quiz-header">
-                <span id="subject-title">Subject</span>
+                <span id="quiz-meta-title">Paper Details</span>
                 <span id="progress">Question 1 of 10</span>
             </div>
             
             <div id="question-container">
                 <h3 id="question-text">Loading question...</h3>
                 <div id="options-container" class="options-list">
-                    <!-- JavaScript will insert option buttons here -->
-                </div>
+                    </div>
             </div>
 
             <div class="quiz-footer">
@@ -43,14 +62,13 @@
             </div>
         </div>
 
-        <!-- Result Screen: Initially Hidden -->
         <div id="result-screen" class="card hidden">
-            <h2>Quiz Completed!</h2>
+            <h2>Paper Completed!</h2>
             <div class="score-display">
                 <p>Your Final Score:</p>
                 <h3 id="final-score">0 / 0</h3>
             </div>
-            <button class="btn btn-primary" onclick="showHomeScreen()">Back to Home</button>
+            <button class="btn btn-primary" onclick="showHomeScreen()">Back to Selection</button>
         </div>
     </div>
 
