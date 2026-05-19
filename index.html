@@ -1,720 +1,2260 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nursing Quiz Hub - KMU Past Papers</title>
-    <style>
-        :root {
-            --primary: #0284c7;
-            --primary-hover: #0369a1;
-            --bg: #0f172a;
-            --surface: #1e293b;
-            --text: #f8fafc;
-            --text-muted: #94a3b8;
-            --correct: #22c55e;
-            --wrong: #ef4444;
-            --border: #334155;
+import sys
+
+# Comprehensive Question Bank containing all processed past papers
+QUESTION_BANK = {
+    "Anatomy & Physiology-I": [
+        # 2024 Paper
+        {
+            "id": "AP_2024_Q1",
+            "year": "2024",
+            "question": "Which of the following statements is NOT true?",
+            "options": {
+                "A": "A condyloid joint is triaxial",
+                "B": "Synovial fluid reduces friction",
+                "C": "Coronal suture is for parietal and frontal bone articulation",
+                "D": "Synostosis is a bony joint"
+            },
+            "answer": "A",
+            "explanation": "A condyloid joint is biaxial (allowing movement in two planes: flexion/extension and abduction/adduction), not triaxial."
+        },
+        {
+            "id": "AP_2024_Q2",
+            "year": "2024",
+            "question": "Which of the following is the powerhouse of the cell?",
+            "options": {
+                "A": "Mitochondria",
+                "B": "Golgi Body",
+                "C": "Endoplasmic Reticulum",
+                "D": "Ribosomes"
+            },
+            "answer": "A",
+            "explanation": "Mitochondria generate most of the cell's supply of adenosine triphosphate (ATP), used as a source of chemical energy."
+        },
+        {
+            "id": "AP_2024_Q3",
+            "year": "2024",
+            "question": "The receptors for hormones such as estrogen and parathyroid hormone are present in:",
+            "options": {
+                "A": "Osteoblasts",
+                "B": "Osteocytes",
+                "C": "Osteoclasts",
+                "D": "None of the above"
+            },
+            "answer": "A",
+            "explanation": "Osteoblasts contain surface and intracellular functional receptors for systemic hormones like estrogen and PTH to regulate bone deposition."
+        },
+        {
+            "id": "AP_2024_Q4",
+            "year": "2024",
+            "question": "What is the first process that occurs after a blood vessel is damaged?",
+            "options": {
+                "A": "Haemolysis",
+                "B": "Vasoconstriction",
+                "C": "Platelet plug formation",
+                "D": "Coagulation"
+            },
+            "answer": "B",
+            "explanation": "Vascular spasm or local vasoconstriction occurs immediately upon vessel injury to reduce blood loss."
+        },
+        {
+            "id": "AP_2024_Q5",
+            "year": "2024",
+            "question": "Which bone forms the floor of the nasal cavity & posterior part of the hard palate?",
+            "options": {
+                "A": "Zygomatic bones",
+                "B": "Lacrimal bones",
+                "C": "Nasal bones",
+                "D": "Palatine bones"
+            },
+            "answer": "D",
+            "explanation": "The horizontal plates of the palatine bones meet posteriorly to form the rear segment of the hard palate and nasal floor."
+        },
+        {
+            "id": "AP_2024_Q6",
+            "year": "2024",
+            "question": "Which epidermal cells shield the nucleus of keratinocytes from harmful UV light?",
+            "options": {
+                "A": "Keratinocytes",
+                "B": "Melanocytes",
+                "C": "Merkel cells",
+                "D": "Langerhans' cells"
+            },
+            "answer": "B",
+            "explanation": "Melanocytes synthesize melanin pigment granules, which accumulate over keratinocyte nuclei to block ultraviolet light radiation damage."
+        },
+        {
+            "id": "AP_2024_Q7",
+            "year": "2024",
+            "question": "Mr. Ali, a 25-year-old RTA patient with a spinal cord injury, has been admitted to the neurosurgery ward. Which cavity plays a role in protecting the spinal cord?",
+            "options": {
+                "A": "Cranial Cavity",
+                "B": "Vertebral Cavity",
+                "C": "Thoracic Cavity",
+                "D": "Abdominal Cavity"
+            },
+            "answer": "B",
+            "explanation": "The vertebral cavity/canal runs through the spinal column and encloses and safeguards the vulnerable tissues of the spinal cord."
+        },
+        {
+            "id": "AP_2024_Q63",
+            "year": "2024",
+            "question": "What causes venous blood to return to the heart?",
+            "options": {
+                "A": "Gravity, valves, and the negative pressure generated by the atria",
+                "B": "Rhythmic vasoconstriction and valves in the veins",
+                "C": "The squashing action of skeletal muscles and valves in the veins",
+                "D": "The pumping action of the heart emptying"
+            },
+            "answer": "C",
+            "explanation": "The contraction of surrounding skeletal muscles squeezes nearby deep veins (skeletal muscle pump), driving blood toward the heart past one-way venous valves."
+        },
+        {
+            "id": "AP_2024_Q64",
+            "year": "2024",
+            "question": "Which of the following is NOT an example of a positive feedback mechanism?",
+            "options": {
+                "A": "Maintenance of body temperature",
+                "B": "Blood clotting",
+                "C": "Childbirth",
+                "D": "Ovulation"
+            },
+            "answer": "A",
+            "explanation": "Body temperature regulation relies on negative feedback loops to reverse deviations and return parameters back to homeostatic baselines."
+        },
+        {
+            "id": "AP_2024_Q65",
+            "year": "2024",
+            "question": "Lymph capillaries join together forming large lymph vessels, which give rise to:",
+            "options": {
+                "A": "Lacteals",
+                "B": "Lymph ducts",
+                "C": "Thoracic duct",
+                "D": "Thoracic lymph vessels"
+            },
+            "answer": "B",
+            "explanation": "Lymphatic networks converge into larger vessels and trunks, which ultimately dump fluid contents into terminal lymph ducts (thoracic and right lymphatic ducts)."
+        },
+        {
+            "id": "AP_2024_Q66",
+            "year": "2024",
+            "question": "Modification of the degree of excitability of musculature in general, including the heart, is called:",
+            "options": {
+                "A": "Dromotropic action",
+                "B": "Bathmotropic action",
+                "C": "Inotropic action",
+                "D": "Chronotropic action"
+            },
+            "answer": "B",
+            "explanation": "Bathmotropic factors directly shift the fundamental threshold of cell membrane excitability or responsiveness in muscular tissues."
+        },
+        {
+            "id": "AP_2024_Q67",
+            "year": "2024",
+            "question": "Which muscle naming criteria are used to name the quadriceps femoris?",
+            "options": {
+                "A": "Muscle action and location",
+                "B": "The origin and insertion",
+                "C": "Location and direction of muscle fibers",
+                "D": "Location and number of origins"
+            },
+            "answer": "D",
+            "explanation": "'Quadriceps' specifies four structural origins/heads, while 'femoris' targets its anatomical location near the femur bone."
+        },
+        {
+            "id": "AP_2024_Q68",
+            "year": "2024",
+            "question": "The plasma membrane of a muscle cell is also known as:",
+            "options": {
+                "A": "Sarcolemma",
+                "B": "Sarcomere",
+                "C": "Sarcoplasm",
+                "D": "Sarcoplasmic reticulum"
+            },
+            "answer": "A",
+            "explanation": "The sarcolemma acts as the specialized excitable lipid bilayer barrier encapsulating a striated skeletal or cardiac muscle fiber cell."
+        },
+        {
+            "id": "AP_2024_Q69",
+            "year": "2024",
+            "question": "As an RN examining a patient's joint movements, you observe the patient turning the sole of the foot laterally. What kind of movement is this?",
+            "options": {
+                "A": "Dorsiflexion",
+                "B": "Plantarflexion",
+                "C": "Inversion",
+                "D": "Eversion"
+            },
+            "answer": "D",
+            "explanation": "Eversion rotates the plantar aspect or sole of the human foot outward, facing away from the median plane."
+        },
+        {
+            "id": "AP_2024_Q70",
+            "year": "2024",
+            "question": "The only flagellated cell in the human body is the:",
+            "options": {
+                "A": "Egg cell",
+                "B": "Sperm cell",
+                "C": "Neuron",
+                "D": "Epithelial cell"
+            },
+            "answer": "B",
+            "explanation": "Mature male spermatozoa require a singular dynamic flagellum tail structure to facilitate active cellular locomotion through the female reproductive tract."
+        },
+
+        # 2023 Paper
+        {
+            "id": "AP_2023_Q38",
+            "year": "2023",
+            "question": "A muscle that pronates and supinates the forearm will insert on which bone?",
+            "options": {
+                "A": "Humerus",
+                "B": "Radius",
+                "C": "Ulna",
+                "D": "1st Metacarpal"
+            },
+            "answer": "B",
+            "explanation": "Forearm rotational actions (pronation/supination) require insertion onto the movable radius bone, which rolls over the static ulna."
+        },
+        {
+            "id": "AP_2023_Q39",
+            "year": "2023",
+            "question": "Which muscle plays a central role in the medial rotation of the shoulder joint?",
+            "options": {
+                "A": "Infraspinatus",
+                "B": "Subscapularis",
+                "C": "Biceps brachii",
+                "D": "Brachialis"
+            },
+            "answer": "B",
+            "explanation": "The subscapularis occupies the anterior subscapular fossa and pulls the humerus inward, causing internal/medial shoulder rotation."
+        },
+        {
+            "id": "AP_2023_Q40",
+            "year": "2023",
+            "question": "The large opening in the lower part of each hip bone, bounded by the pubis and ischium, is called the:",
+            "options": {
+                "A": "Greater sciatic notch",
+                "B": "Lesser sciatic notch",
+                "C": "Obturator foramen",
+                "D": "Acetabulum"
+            },
+            "answer": "C",
+            "explanation": "The obturator foramen is the large skeletal aperture formed by the fusion of the pubic and ischial rami."
+        },
+        {
+            "id": "AP_2023_Q41",
+            "year": "2023",
+            "question": "The part of the long bone that actively takes part in the longitudinal growth of the bone is the:",
+            "options": {
+                "A": "Diaphysis",
+                "B": "Metaphysis",
+                "C": "Epiphysis",
+                "D": "Epiphyseal plate (Growth Plate)"
+            },
+            "answer": "D",
+            "explanation": "The epiphyseal cartilage plate undergoes interstitial expansion and ossification to drive bone elongation."
+        },
+        {
+            "id": "AP_2023_Q42",
+            "year": "2023",
+            "question": "Which muscle group forms the majority of the muscular pelvic diaphragm floor?",
+            "options": {
+                "A": "Gluteus Maximus",
+                "B": "Levator ani and Coccygeus",
+                "C": "Symphysis pubis",
+                "D": "None of the above"
+            },
+            "answer": "B",
+            "explanation": "The levator ani (composed of puborectalis, pubococcygeus, iliococcygeus) along with the coccygeus muscle construct the structural pelvic floor."
+        },
+        {
+            "id": "AP_2023_Q43",
+            "year": "2023",
+            "question": "A type of muscle contraction where muscle tension increases despite changing length is:",
+            "options": {
+                "A": "Eccentric contraction",
+                "B": "Concentric contraction",
+                "C": "Isotonic contraction",
+                "D": "Isometric contraction"
+            },
+            "answer": "C",
+            "explanation": "Isotonic contractions maintain a consistent tension profile while the muscle body changes length (incorporating concentric and eccentric subtypes)."
+        },
+        {
+            "id": "AP_2023_Q44",
+            "year": "2023",
+            "question": "Which muscle raises the eyebrows and produces transverse wrinkles across the forehead skin?",
+            "options": {
+                "A": "Frontalis (Occipitofrontalis)",
+                "B": "Orbicularis oculi",
+                "C": "Zygomaticus major",
+                "D": "Orbicularis oris"
+            },
+            "answer": "A",
+            "options": {
+                "A": "Frontalis",
+                "B": "Orbicularis oculi",
+                "C": "Corrugator",
+                "D": "Procerus"
+            },
+            "explanation": "The frontal belly of the occipitofrontalis pulls the scalp forward and elevates the brow lines."
+        },
+        {
+            "id": "AP_2023_Q45",
+            "year": "2023",
+            "question": "This deep muscle of the posterior compartment of the lower limb originates from the tibia/fibula and inserts on tarsals/metatarsals to produce plantarflexion:",
+            "options": {
+                "A": "Tibialis posterior",
+                "B": "Gastrocnemius",
+                "C": "Soleus",
+                "D": "Flexor digitorum longus"
+            },
+            "answer": "A",
+            "explanation": "The tibialis posterior lies deep within the posterior leg compartment and inverts and plantarflexes the foot."
+        },
+
+        # 2021 Paper
+        {
+            "id": "AP_2021_Q1",
+            "year": "2021",
+            "question": "In a healthy adult, fluid absorption from the intestine happens constantly. One standard US gallon is equivalent to approximately how many liters?",
+            "options": {
+                "A": "3.45 liters",
+                "B": "3.78 liters",
+                "C": "4.54 liters",
+                "D": "5.00 liters"
+            },
+            "answer": "B",
+            "explanation": "One standard liquid gallon contains exactly 3.785 liters."
+        },
+        {
+            "id": "AP_2021_Q2",
+            "year": "2021",
+            "question": "The clear crystalline lens components found inside the human eye are structural examples of:",
+            "options": {
+                "A": "Avascular Tissue",
+                "B": "Highly Vascular Tissue",
+                "C": "Poorly Vascular Tissue",
+                "D": "None of the above"
+            },
+            "answer": "A",
+            "explanation": "The ocular lens must remain strictly avascular to prevent light scatter and preserve transparency."
+        },
+        {
+            "id": "AP_2021_Q3",
+            "year": "2021",
+            "question": "A planar/gliding joint structural interface occurs between which set of skeletal structures?",
+            "options": {
+                "A": "Interphalangeal bones",
+                "B": "Intercarpal and intertarsal bones",
+                "C": "Metacarpophalangeal bones",
+                "D": "Metatarsal and phalangeal bones"
+            },
+            "answer": "B",
+            "explanation": "Intercarpal (wrist) and intertarsal (ankle) articular facts are flat surfaces that glide smoothly over one another."
+        },
+        {
+            "id": "AP_2021_Q4",
+            "year": "2021",
+            "question": "What describes the standard structural spatial location of the heart base and apex within a healthy chest cavity?",
+            "options": {
+                "A": "Base lies at 2nd intercostal space & apex points down at 5th intercostal space",
+                "B": "Base lies at 5th intercostal space & apex points up at 2nd intercostal space",
+                "C": "Base lies at 3rd intercostal space & apex points down at 5th intercostal space",
+                "D": "Base lies at 4th intercostal space & apex points down at 6th intercostal space"
+            },
+            "answer": "A",
+            "explanation": "The cardiac base is superiorly oriented at the level of the 2nd costal cartilage, while the apex points inferiorly to the left 5th intercostal space."
+        },
+        {
+            "id": "AP_2021_Q5",
+            "year": "2021",
+            "question": "Which biological phenomenon acts via a classic positive feedback amplification loop sequence mechanism?",
+            "options": {
+                "A": "Uterine contractions during childbirth",
+                "B": "Control of arterial blood pressure",
+                "C": "Control of blood glucose level",
+                "D": "Thermoregulation"
+            },
+            "answer": "A",
+            "explanation": "Oxytocin release prompts contractions during labor, which push the baby's head against the cervix, signaling the brain to release even more oxytocin."
+        },
+        {
+            "id": "AP_2021_Q65",
+            "year": "2021",
+            "question": "Which of the following listings contains bones belonging exclusively to the appendicular skeleton division?",
+            "options": {
+                "A": "Ulna, radius, phalanges, fibula, metacarpals",
+                "B": "Humerus, scapula, occipital bone, sternum",
+                "C": "Clavicle, fibula, metatarsals, mandible, coxal bone",
+                "D": "Patella, ethmoid, femur, coccyx, tibia"
+            },
+            "answer": "A",
+            "explanation": "The appendicular division encompasses limbs and structural pectoral/pelvic girdles. Occipital, sternum, ethmoid, and coccyx are part of the axial skeleton."
+        },
+        {
+            "id": "AP_2021_Q66",
+            "year": "2021",
+            "question": "Which zone represents the primary linear growth cartilage layer site located inside growing long bones?",
+            "options": {
+                "A": "Epiphysis",
+                "B": "Diaphysis",
+                "C": "Metaphysis",
+                "D": "Epiphyseal plate"
+            },
+            "answer": "D",
+            "explanation": "The epiphyseal plate is the specialized hyaline cartilage layer within the metaphysis where bone lengthening takes place."
+        },
+        {
+            "id": "AP_2021_Q67",
+            "year": "2021",
+            "question": "The left atrium chamber of the human heart receives how many distinct oxygenated pulmonary veins?",
+            "options": {
+                "A": "1",
+                "B": "2",
+                "C": "3",
+                "D": "4"
+            },
+            "answer": "D",
+            "explanation": "Four pulmonary veins (two right, two left) drain fresh blood out from the lungs back into the left atrium."
+        },
+        {
+            "id": "AP_2021_Q68",
+            "year": "2021",
+            "question": "Which anatomical directional term specifies a location nearer to the structural attachment point of a limb to the body trunk?",
+            "options": {
+                "A": "Proximal",
+                "B": "Superior",
+                "C": "Distal",
+                "D": "Inferior"
+            },
+            "answer": "A",
+            "explanation": "Proximal means closer to the limb root attachment; distal means further away down toward the extremities."
+        },
+        {
+            "id": "AP_2021_Q69",
+            "year": "2021",
+            "question": "Which of the following functions is performed by the human integumentary skin system layer?",
+            "options": {
+                "A": "Oxygen transport",
+                "B": "Vitamin D production activation",
+                "C": "Taste sensations",
+                "D": "Swallowing mechanics"
+            },
+            "answer": "B",
+            "explanation": "Epidermal cells use ultraviolet radiation exposure to trigger the synthesis of Vitamin D precursors."
+        },
+        {
+            "id": "AP_2021_Q70",
+            "year": "2021",
+            "question": "The single largest internal somatic hollow space or cavity found inside the human body structural frame is the:",
+            "options": {
+                "A": "Cranial cavity",
+                "B": "Pelvic cavity",
+                "C": "Thoracic cavity",
+                "D": "Abdominal cavity"
+            },
+            "answer": "D",
+            "explanation": "The abdominal cavity stands as the most expansive interior anatomical space, holding the bulk of the visceral digestive organs."
+        },
+
+        # 2020 Paper
+        {
+            "id": "AP_2020_Q1",
+            "year": "2020",
+            "question": "At what vertebral level does the manubrium of the sternum lie?",
+            "options": {
+                "A": "Just below the sternal notch",
+                "B": "At the level of T3, T4 vertebrae",
+                "C": "At the level of T4, T5 vertebrae",
+                "D": "At the level of T6, T7 vertebrae"
+            },
+            "answer": "B",
+            "explanation": "The structural superior segment or manubrium section of the sternum runs parallel to the third and fourth thoracic vertebrae."
+        },
+        {
+            "id": "AP_2020_Q2",
+            "year": "2020",
+            "question": "What lies at the medial surface of the lungs, serving as the entry and exit point for pulmonary/bronchial vessels, lymphatics, and nerves?",
+            "options": {
+                "A": "The hilum",
+                "B": "The helium",
+                "C": "The milum",
+                "D": "The ileum"
+            },
+            "answer": "A",
+            "explanation": "The lung hilum is the triangular indentation where roots structures insert or exit the pulmonary tissue."
+        },
+        {
+            "id": "AP_2020_Q3",
+            "year": "2020",
+            "question": "The nasal cavity is divided into two halves by the bony nasal septum, which is largely formed by which bone?",
+            "options": {
+                "A": "Inferior Conchae",
+                "B": "Lacrimal",
+                "C": "Maxilla",
+                "D": "Vomer"
+            },
+            "answer": "D",
+            "explanation": "The thin, flat vomer bone forms the inferior posterior portion of the nasal septum, articulating with the ethmoid."
+        },
+        {
+            "id": "AP_2020_Q4",
+            "year": "2020",
+            "question": "The ______ is a mobile single bone found in the midline of the neck below the mandible that sits above the larynx:",
+            "options": {
+                "A": "Cervical vertebra",
+                "B": "Clavicle",
+                "C": "Hyoid",
+                "D": "Mandible"
+            },
+            "answer": "C",
+            "explanation": "The U-shaped hyoid bone is unique because it doesn't articulate directly with any other bone, serving as an anchor for tongue muscles."
+        },
+        {
+            "id": "AP_2020_Q5",
+            "year": "2020",
+            "question": "Incomplete fusion of the two medial nasal swellings embryologically results in which condition?",
+            "options": {
+                "A": "Lateral cleft of the upper lip",
+                "B": "Medial cleft of the upper lip",
+                "C": "Macrostomia",
+                "D": "Microstomia"
+            },
+            "answer": "B",
+            "explanation": "A failure of the medial nasal processes to merge along the facial midline leads to a medial cleft lip."
+        },
+        {
+            "id": "AP_2020_Q6",
+            "year": "2020",
+            "question": "Acromial fibers of the deltoid muscle display which architectural arrangement?",
+            "options": {
+                "A": "Bipennate",
+                "B": "Multipennate",
+                "C": "Tripennate",
+                "D": "Unipennate"
+            },
+            "answer": "B",
+            "explanation": "The multipennate layout features branch tendons converging toward a central attachment tendon, typified by the central deltoid fibers."
+        },
+        {
+            "id": "AP_2020_Q67",
+            "year": "2020",
+            "question": "The carpometacarpal joint of the human thumb is a classic structural example of a:",
+            "options": {
+                "A": "Condyloid joint",
+                "B": "Ellipsoid joint",
+                "C": "Hinge joint",
+                "D": "Saddle joint"
+            },
+            "answer": "D",
+            "explanation": "The saddle (sellar) joint at the thumb base features complementary concave and convex surfaces, enabling a wide range of motion."
+        },
+        {
+            "id": "AP_2020_Q68",
+            "year": "2020",
+            "question": "Bones that are roughly cuboidal in shape and composed primarily of interior cancellous sponge tissues are classified as:",
+            "options": {
+                "A": "Flat bones",
+                "B": "Irregular bones",
+                "C": "Long bones",
+                "D": "Short bones"
+            },
+            "answer": "D",
+            "explanation": "Short bones (like carpals and tarsals) share an approximately equal length-to-width ratio and a cuboidal structure."
+        },
+        {
+            "id": "AP_2020_Q69",
+            "year": "2020",
+            "question": "Which directional anatomical reference term refers specifically to structures located on the same side of the body?",
+            "options": {
+                "A": "Anterior",
+                "B": "Contralateral",
+                "C": "Ipsilateral",
+                "D": "Supine"
+            },
+            "answer": "C",
+            "explanation": "Ipsilateral denotes the same side, whereas contralateral indicates the opposite side of the body."
+        },
+        {
+            "id": "AP_2020_Q70",
+            "year": "2020",
+            "question": "The cremasteric fascia layer structures are derived directly from which muscle or its associated fascia?",
+            "options": {
+                "A": "Internal abdominal oblique muscle",
+                "B": "Pyramidalis",
+                "C": "Rectus muscle",
+                "D": "Scarpa's fascia"
+            },
+            "answer": "A",
+            "explanation": "As the testes descend, the cremaster muscle and its fascia are drawn from the internal abdominal oblique muscle layer."
         }
+    ],
+    "Biochemistry for Nurses": [
+        # 2024 Paper
+        {
+            "id": "BC_2024_Q1",
+            "year": "2024",
+            "question": "Which of these components is NOT classified as a lipid macromolecule?",
+            "options": {
+                "A": "Fats",
+                "B": "Oils",
+                "C": "RNA",
+                "D": "Waxes"
+            },
+            "answer": "C",
+            "explanation": "RNA (Ribonucleic Acid) is a nucleic acid composed of nucleotide polymers, not a lipid."
+        },
+        {
+            "id": "BC_2024_Q2",
+            "year": "2024",
+            "question": "RNA Polymerase III is primarily responsible for transcribing the genes for:",
+            "options": {
+                "A": "Ribosomal RNA (rRNA)",
+                "B": "Messenger RNA (mRNA)",
+                "C": "Transfer RNA (tRNA)",
+                "D": "Small interfering RNA (siRNA)"
+            },
+            "answer": "C",
+            "explanation": "RNA Polymerase III transcribes small, stable untranslated RNAs, notably transfer RNAs (tRNAs) and 5S rRNA."
+        },
+        {
+            "id": "BC_2024_Q3",
+            "year": "2024",
+            "question": "Which of the following is classified as a purely ketogenic amino acid profile product?",
+            "options": {
+                "A": "Valine",
+                "B": "Cysteine",
+                "C": "Leucine",
+                "D": "Threonine"
+            },
+            "answer": "C",
+            "explanation": "Leucine and Lysine are the only two purely ketogenic amino acids, breaking down into acetyl-CoA or acetoacetate."
+        },
+        {
+            "id": "BC_2024_Q4",
+            "year": "2024",
+            "question": "Which basic structural characteristic does a complex lipid share with a basic wax compound?",
+            "options": {
+                "A": "Both contain a polar head group",
+                "B": "Both contain three long-chain fatty acids",
+                "C": "Both contain one or more interior ester bonds",
+                "D": "Both contain multiple terminal carboxyl groups"
+            },
+            "answer": "C",
+            "explanation": "Both structural sets form true ester linkages when their long-chain fatty acids attach to their respective alcohols."
+        },
+        {
+            "id": "BC_2024_Q5",
+            "year": "2024",
+            "question": "What is the corresponding complementary anticodon match pattern for the mRNA codon sequence GAG?",
+            "options": {
+                "A": "CAC",
+                "B": "CTC",
+                "C": "GAG",
+                "D": "CUC"
+            },
+            "answer": "D",
+            "explanation": "Using standard RNA base pairing rules (A pairs with U, G pairs with C), the anticodon for GAG is CUC."
+        },
+        {
+            "id": "BC_2024_Q6",
+            "year": "2024",
+            "question": "Organic compounds that are essentially nonpolar and exhibit weak intermolecular forces tend to have:",
+            "options": {
+                "A": "Low melting points",
+                "B": "Low vapour pressure",
+                "C": "High boiling points",
+                "D": "High electrical conductivity"
+            },
+            "answer": "A",
+            "explanation": "Nonpolar organic molecules rely on weak London dispersion forces, requiring less thermal energy to melt or boil."
+        },
+        {
+            "id": "BC_2024_Q7",
+            "year": "2024",
+            "question": "The chemical property of carbon atoms that allows them to form long, stable chains is called:",
+            "options": {
+                "A": "Catenation",
+                "B": "Hybridization",
+                "C": "Polymerization",
+                "D": "Solvation"
+            },
+            "answer": "A",
+            "explanation": "Catenation is the ability of an element to form covalent bonds with other atoms of the same element, resulting in long chains or rings."
+        },
+        {
+            "id": "BC_2024_Q59",
+            "year": "2024",
+            "question": "Which of the following endocrine hormones binds primarily to an intracellular receptor?",
+            "options": {
+                "A": "Adrenocorticotropic hormone (ACTH)",
+                "B": "Thyroxine (T4)",
+                "C": "Follicle-stimulating hormone (FSH)",
+                "D": "Glucagon"
+            },
+            "answer": "B",
+            "explanation": "Thyroid hormones like thyroxine are hydrophobic and cross cell membranes to bind to nuclear receptors, altering gene transcription directly."
+        },
+        {
+            "id": "BC_2024_Q60",
+            "year": "2024",
+            "question": "Where does the beta-oxidation of unsaturated fatty acids take place within the cell?",
+            "options": {
+                "A": "Mitochondria",
+                "B": "Cytoplasm",
+                "C": "Chloroplast",
+                "D": "Endoplasmic Reticulum"
+            },
+            "answer": "A",
+            "explanation": "Both saturated and unsaturated fatty acid beta-oxidation cycles occur within the mitochondrial matrix."
+        },
+        {
+            "id": "BC_2024_Q61",
+            "year": "2024",
+            "question": "The entire collective set of life-sustaining chemical reactions that occur inside a living organism is known as:",
+            "options": {
+                "A": "Catabolism",
+                "B": "Anabolism",
+                "C": "Kreb's cycle",
+                "D": "Metabolism"
+            },
+            "answer": "D",
+            "explanation": "Metabolism includes all catabolic (breaking down) and anabolic (building up) pathways in a living cell."
+        },
+        {
+            "id": "BC_2024_Q62",
+            "year": "2024",
+            "question": "Glutamine is symbolically represented by which single-letter amino acid code?",
+            "options": {
+                "A": "S",
+                "String": "Q",
+                "C": "R",
+                "D": "P"
+            },
+            "answer": "B",
+            "explanation": "Glutamine is designated by the single letter 'Q' (and three-letter code 'Gln') to avoid confusion with Glutamic acid ('E')."
+        },
+        {
+            "id": "BC_2024_Q63",
+            "year": "2024",
+            "question": "What is the primary storage form of carbohydrate found in animals?",
+            "options": {
+                "A": "Glucose",
+                "B": "Lactose",
+                "C": "Starch",
+                "D": "Glycogen"
+            },
+            "answer": "D",
+            "explanation": "Glygogen is a highly branched polysaccharide that serves as the main glucose storage unit in animal liver and muscle tissues."
+        },
+        {
+            "id": "BC_2024_Q64",
+            "year": "2024",
+            "question": "How many distinct types of RNA Polymerase enzymes do prokaryotic organisms possess?",
+            "options": {
+                "A": "1",
+                "B": "2",
+                "C": "3",
+                "D": "4"
+            },
+            "answer": "A",
+            "explanation": "Prokaryotes use a single core RNA polymerase enzyme (with shifting sigma factors) to transcribe all mRNA, tRNA, and rRNA lines."
+        },
+        {
+            "id": "BC_2024_Q65",
+            "year": "2024",
+            "question": "Which of the following statements is FALSE regarding the biological properties of lipids?",
+            "options": {
+                "A": "They are either strongly hydrophobic or amphipathic",
+                "B": "They are more soluble in water than organic solvents",
+                "C": "Extraction of lipids from tissues requires organic solvents",
+                "D": "They can form complex structural bilayers"
+            },
+            "answer": "B",
+            "explanation": "Lipids are characteristically insoluble in polar solvents like water, dissolving easily in nonpolar organic solvents."
+        },
+        {
+            "id": "BC_2024_Q66",
+            "year": "2024",
+            "question": "High-Density Lipoprotein (HDL) is primarily synthesized and secreted by which organ?",
+            "options": {
+                "A": "Pancreas",
+                "B": "Liver",
+                "C": "Kidney",
+                "D": "Spleen"
+            },
+            "answer": "B",
+            "explanation": "The liver (and to a lesser degree, the small intestine) produces and releases apolipoprotein complexes to form functional nascent HDL discs."
+        },
+        {
+            "id": "BC_2024_Q67",
+            "year": "2024",
+            "question": "The scientific study of the chemical bonds breaking and making inside the body, accompanying energy transfer, is called:",
+            "options": {
+                "A": "Biochemistry",
+                "B": "Biology",
+                "C": "Metabolism",
+                "D": "Thermodynamics"
+            },
+            "answer": "A",
+            "explanation": "Biochemistry blends organic chemistry principles with physiological processes to explore the molecular basis of life."
+        },
+        {
+            "id": "BC_2024_Q68",
+            "year": "2024",
+            "question": "At room temperature, a standard lipid oil compound is typically liquid because it contains mostly ______ fatty acids:",
+            "options": {
+                "A": "Saturated",
+                "B": "Vitamin",
+                "C": "Unsaturated",
+                "D": "None of the above"
+            },
+            "answer": "C",
+            "explanation": "Unsaturated fatty acids feature cis-double bonds that introduce kinks into the carbon chains, preventing tight packing and lowering the melting point."
+        },
+        {
+            "id": "BC_2024_Q69",
+            "year": "2024",
+            "question": "Which of the following substances serves as an explicit example of a derived lipid compound category structure?",
+            "options": {
+                "A": "Steroids",
+                "B": "Carotenoids",
+                "C": "Dexamethasone",
+                "D": "Both B and C"
+            },
+            "answer": "A",
+            "explanation": "Derived lipids are products obtained from the hydrolysis of simple or compound lipids, including steroid ring structures like cholesterol."
+        },
+        {
+            "id": "BC_2024_Q70",
+            "year": "2024",
+            "question": "A pure chemical substance that contains only one specific type of atom is called:",
+            "options": {
+                "A": "An element",
+                "B": "A compound",
+                "C": "A solid",
+                "D": "A mixture"
+            },
+            "answer": "A",
+            "explanation": "An element cannot be broken down into simpler substances by chemical means, consisting entirely of atoms with identical proton numbers."
+        },
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        # 2023 Paper
+        {
+            "id": "BC_2023_Q1",
+            "year": "2023",
+            "question": "Which of the following statements is true regarding chemical isotopes?",
+            "options": {
+                "A": "They share the same number of neutrons",
+                "B": "They share the same mass number",
+                "C": "They share identical physical properties",
+                "D": "They share identical chemical properties"
+            },
+            "answer": "D",
+            "explanation": "Isotopes possess the same electron arrangements and atomic numbers, giving them identical chemical behaviors despite different neutron counts and mass numbers."
+        },
+        {
+            "id": "BC_2023_Q2",
+            "year": "2023",
+            "question": "Which of the following values represents the strongest acid concentration state?",
+            "options": {
+                "A": "pH = 7",
+                "B": "pH = 3",
+                "C": "pH = 4",
+                "D": "pH = 1"
+            },
+            "answer": "D",
+            "explanation": "Because pH is calculated as the negative logarithm of hydrogen ion concentration, lower values indicate a higher concentration of free protons ($H^+$)."
+        },
+        {
+            "id": "BC_2023_Q3",
+            "year": "2023",
+            "question": "When selecting the longest carbon chain for IUPAC organic nomenclature, if two chains compete in length, which one do you choose?",
+            "options": {
+                "A": "The chain with fewer substituents",
+                "B": "The chain with a greater number of substituents",
+                "C": "The chain closest to a double bond",
+                "D": "The chain closest to a triple bond"
+            },
+            "answer": "B",
+            "explanation": "IUPAC rules state that if two chains share the same length, the chain carrying the greater number of side-group substituents is chosen as the parent."
+        },
+        {
+            "id": "BC_2023_Q4",
+            "year": "2023",
+            "question": "The type of isomerism where compounds share a molecular formula but differ in the arrangement of the same functional group is called:",
+            "options": {
+                "A": "Metamerism",
+                "B": "Functional group isomerism",
+                "C": "Position isomerism",
+                "D": "Chain isomerism"
+            },
+            "answer": "A",
+            "explanation": "Metamerism arises from an unequal distribution of alkyl groups on either side of a polyvalent functional group (such as an ether or amine link)."
+        },
+        {
+            "id": "BC_2023_Q5",
+            "year": "2023",
+            "question": "Which of the following substances is classified as a true organic compound?",
+            "options": {
+                "A": "Water ($H_2O$)",
+                "B": "Proteins",
+                "C": "Hydrochloric Acid ($HCl$)",
+                "D": "Sodium Hydroxide ($NaOH$)"
+            },
+            "answer": "B",
+            "explanation": "Organic compounds are characterized by carbon-hydrogen structures, making complex protein amino acid configurations organic."
+        },
+        {
+            "id": "BC_2023_Q6",
+            "year": "2023",
+            "question": "Chain isomerism can also be referred to by which common alternative name?",
+            "options": {
+                "A": "Metamerism",
+                "B": "Skeletal isomerism",
+                "C": "Tautomerism",
+                "D": "All of the above"
+            },
+            "answer": "B",
+            "explanation": "Skeletal isomerism refers to variations in the structural arrangement of the primary carbon backbone."
+        },
+        {
+            "id": "BC_2023_Q61",
+            "year": "2023",
+            "question": "Ketone bodies can be oxidized and utilized as metabolic fuel sources by all of the following organs EXCEPT the:",
+            "options": {
+                "A": "Erythrocytes (Red Blood Cells)",
+                "B": "Brain",
+                "C": "Liver",
+                "D": "Kidney"
+            },
+            "answer": "A",
+            "explanation": "Red blood cells lack mitochondria, making them entirely dependent on anaerobic glycolysis; they cannot extract energy from ketone bodies."
+        },
+        {
+            "id": "BC_2023_Q62",
+            "year": "2023",
+            "question": "During acute, long-term systemic starvation conditions, the body will deplete which fuel reserve first?",
+            "options": {
+                "A": "Fats",
+                "B": "Glycogen",
+                "C": "Blood protein",
+                "D": "Muscle protein"
+            },
+            "answer": "B",
+            "explanation": "The body prioritizes exhausting readily available glycogen reserves before breaking down triglycerides and muscle proteins."
+        },
+        {
+            "id": "BC_2023_Q63",
+            "year": "2023",
+            "question": "What serves as the primary rate-limiting, committed enzymatic step of the glycolysis pathway?",
+            "options": {
+                "A": "Enolase",
+                "B": "Phosphohexose isomerase",
+                "C": "Phosphofructokinase (PFK)",
+                "D": "Glyceraldehyde-3-phosphate dehydrogenase"
+            },
+            "answer": "C",
+            "explanation": "Phosphofructokinase-1 (PFK-1) catalyzes the irreversible phosphorylation of fructose-6-phosphate into fructose-1,6-bisphosphate, regulating glycolytic flow."
+        },
+        {
+            "id": "BC_2023_Q64",
+            "year": "2023",
+            "question": "What is the true net yield of ATP generated per single glucose molecule processed during anaerobic glycolysis?",
+            "options": {
+                "A": "4 ATP",
+                "B": "5 ATP",
+                "C": "2 ATP",
+                "D": "1 ATP + 1 GTP"
+            },
+            "answer": "C",
+            "explanation": "While glycolysis produces 4 ATP molecules, it consumes 2 ATP in the preparatory phase, resulting in a net gain of 2 ATP."
+        },
+        {
+            "id": "BC_2023_Q65",
+            "year": "2023",
+            "question": "Where are the enzyme complexes responsible for the beta-oxidation of fatty acids primarily located?",
+            "options": {
+                "A": "Peroxisomes",
+                "B": "Peroxisomes and Mitochondria",
+                "C": "Mitochondria",
+                "D": "Peroxisomes, Mitochondria, and ER"
+            },
+            "answer": "C",
+            "explanation": "While long-chain fatty acids undergo initial processing in peroxisomes, the bulk of cellular beta-oxidation happens within the mitochondrial matrix."
+        },
+        {
+            "id": "BC_2023_Q66",
+            "year": "2023",
+            "question": "Lipolysis is scientifically defined as the:",
+            "options": {
+                "A": "Hydrolysis of triacylglycerols into free fatty acids and glycerol",
+                "B": "Biosynthetic formation of active lipid complex segments",
+                "C": "Metabolic breakdown of circulating ketone body structures",
+                "D": "Formation of active acetoacetate ketone bodies"
+            },
+            "answer": "A",
+            "explanation": "Lipolysis is the process of breaking down stored triacylglycerols into three free fatty acid chains and a glycerol backbone."
+        },
+        {
+            "id": "BC_2023_Q67",
+            "year": "2023",
+            "question": "A systemic nutritional deficiency of which element leads to swelling of the thyroid gland (goiter)?",
+            "options": {
+                "A": "Calcium",
+                "B": "Iodine",
+                "C": "Phosphorus",
+                "D": "Iron"
+            },
+            "answer": "B",
+            "explanation": "The thyroid requires iodine to synthesize T3 and T4 hormones. A lack of iodine triggers excess TSH release, causing hypertrophic thyroid enlargement."
+        },
+
+        # 2021 Paper
+        {
+            "id": "BC_2021_Q1",
+            "year": "2021",
+            "question": "Which mechanism describes a process where the final end product of a metabolic pathway acts as a co-repressor to stop enzyme synthesis?",
+            "options": {
+                "A": "Allosteric regulation",
+                "B": "Feedback repression",
+                "C": "Feedback inhibition",
+                "D": "Regulation by phosphorylation"
+            },
+            "answer": "B",
+            "explanation": "Feedback repression operates at the genetic level; an accumulating end product acts as a co-repressor to shut down operon transcription."
+        },
+        {
+            "id": "BC_2021_Q2",
+            "year": "2021",
+            "question": "Two carbohydrate sugars that differ in configuration around only a single asymmetric carbon atom are termed:",
+            "options": {
+                "A": "Stereoisomers",
+                "B": "Optical isomers",
+                "C": "Anomers",
+                "D": "Epimers"
+            },
+            "answer": "D",
+            "explanation": "Epimers are diastereomers that vary in stereochemical configuration at exactly one chiral center (e.g., D-glucose and D-galactose at C-4)."
+        },
+        {
+            "id": "BC_2021_Q3",
+            "year": "2021",
+            "question": "A single atom or cohesive group of atoms that determines the characteristic chemical reactivity profiles of an organic compound is a:",
+            "options": {
+                "A": "Radical",
+                "B": "Hydrocarbon",
+                "C": "Functional group",
+                "D": "Ion"
+            },
+            "answer": "C",
+            "explanation": "Functional groups (like -OH, -COOH) are specific atom clusters that exhibit predictable chemical behaviors regardless of the larger molecular structure."
+        },
+        {
+            "id": "BC_2021_Q4",
+            "year": "2021",
+            "question": "Which of the following features is shared by all of the core fatty acid components in a complex lipid structure?",
+            "options": {
+                "A": "They are highly hydrophilic due to oxygen content",
+                "B": "They are joined to a glycerol backbone via ester bonds",
+                "C": "They contain unconjugated cis-double bonds throughout",
+                "D": "They all contain an unbranched carbon chain structure"
+            },
+            "answer": "D",
+            "explanation": "Natural fatty acids typically feature unbranched carbon hydrocarbon backbones, containing an even number of carbon atoms."
+        },
+        {
+            "id": "BC_2021_Q5",
+            "year": "2021",
+            "question": "Which of the following options represents a purely ketogenic amino acid?",
+            "options": {
+                "A": "Valine",
+                "B": "Cysteine",
+                "C": "Leucine",
+                "D": "Threonine"
+            },
+            "answer": "C",
+            "explanation": "Leucine is strictly ketogenic, breaking down directly into acetyl-CoA precursors rather than glucose intermediates."
+        },
+        {
+            "id": "BC_2021_Q6",
+            "year": "2021",
+            "question": "Which of the following pathways is NOT classified as an energy-releasing metabolic process?",
+            "options": {
+                "A": "Glycolysis",
+                "B": "Gluconeogenesis",
+                "C": "Glycogenolysis",
+                "D": "Beta-oxidation"
+            },
+            "answer": "B",
+            "explanation": "Gluconeogenesis is an anabolic pathway that synthesizes glucose from non-carbohydrate precursors, consuming ATP and GTP."
+        },
+        {
+            "id": "BC_2021_Q7",
+            "year": "2021",
+            "question": "The property of carbon that enables it to form long, stable chains by bonding with other carbon atoms is called:",
+            "options": {
+                "A": "Catenation",
+                "B": "Hybridization",
+                "C": "Polymerization",
+                "D": "Isomerization"
+            },
+            "answer": "A",
+            "explanation": "Carbon's low atomic radius and valency make it exceptionally well-suited for catenation, forming stable covalent carbon-to-carbon bonds."
+        },
+        {
+            "id": "BC_2021_Q62",
+            "year": "2021",
+            "question": "Organic compounds that have very high molecular weights, composed of repeating structural sub-units, are called:",
+            "options": {
+                "A": "Carboxylic acids",
+                "B": "Aldehydes",
+                "C": "Polymers",
+                "D": "Ketones"
+            },
+            "answer": "C",
+            "explanation": "Polymers are high-molecular-weight macromolecules built from linked monomer units."
+        },
+        {
+            "id": "BC_2021_Q63",
+            "year": "2021",
+            "question": "In mammalian cells, ribosomal RNA (rRNA) processing and assembly occur primarily within the:",
+            "options": {
+                "A": "Endoplasmic reticulum",
+                "B": "Ribosome",
+                "C": "Nucleolus",
+                "D": "Nucleus"
+            },
+            "answer": "C",
+            "explanation": "The nucleolus is a dense sub-nuclear structure dedicated to transcribing and assembling ribosomal RNA subunits."
+        },
+        {
+            "id": "BC_2021_Q64",
+            "year": "2021",
+            "question": "All of the following biological entities carry circular DNA architectures EXCEPT:",
+            "options": {
+                "A": "Eukaryotic Viruses",
+                "B": "Bacterial Plasmids",
+                "C": "Bacterial chromosomes",
+                "D": "Mitochondrial DNA"
+            },
+            "answer": "A",
+            "explanation": "Most eukaryotic viruses pack linear DNA configurations, whereas plasmids, bacteria, and mitochondria use circular loops."
+        },
+        {
+            "id": "BC_2021_Q65",
+            "year": "2021",
+            "question": "Which of the following membrane lipid structural categories features a protective amide bond linkage?",
+            "options": {
+                "A": "Cholesterol",
+                "B": "Phosphatidylserine",
+                "C": "Phosphatidic acid",
+                "D": "Sphingomyelin"
+            },
+            "answer": "D",
+            "explanation": "Sphingomyelin binds its fatty acid chain to a sphingosine amino backbone via an amide linkage rather than an ester bond."
+        },
+        {
+            "id": "BC_2021_Q66",
+            "year": "2021",
+            "question": "Excessive consumption of ethanol causes a sharp metabolic increase in which internal cellular cofactor ratio?",
+            "options": {
+                "A": "NADH : NAD+",
+                "B": "NAD+ : NADH",
+                "C": "FADH2 : FAD",
+                "D": "FAD : FADH2"
+            },
+            "answer": "A",
+            "explanation": "Alcohol dehydrogenase processes ethanol by reducing NAD+ to NADH, creating an excess of NADH that can stall the TCA cycle."
+        },
+        {
+            "id": "BC_2021_Q67",
+            "year": "2021",
+            "question": "Which of the following compounds serves as a primary storage form of high-energy phosphate in skeletal muscle tissues?",
+            "options": {
+                "A": "Glucose-6-phosphate",
+                "B": "Phosphoenolpyruvate",
+                "C": "Phosphagens (e.g., Phosphocreatine)",
+                "D": "Glycerol phosphate"
+            },
+            "answer": "C",
+            "explanation": "Phosphagens (like creatine phosphate) store high-energy phosphate bonds that can be rapidly transferred to ADP to replenish ATP during high-intensity exercise."
+        },
+        {
+            "id": "BC_2021_Q68",
+            "year": "2021",
+            "question": "Which carbohydrate is a key epimer of glucose, differing only at the C-4 position?",
+            "options": {
+                "A": "Galactose",
+                "B": "Fructose",
+                "C": "Arabinose",
+                "D": "Xylose"
+            },
+            "answer": "A",
+            "explanation": "D-galactose is the C-4 epimer of D-glucose, while D-mannose is its C-2 epimer."
+        },
+        {
+            "id": "BC_2021_Q69",
+            "year": "2021",
+            "question": "The amino acid Glutamine is symbolically represented by which standard single-letter shorthand notation?",
+            "options": {
+                "A": "S",
+                "B": "Q",
+                "C": "R",
+                "D": "G"
+            },
+            "answer": "B",
+            "explanation": "Glutamine uses the letter 'Q'. 'G' stands for Glycine, and 'R' represents Arginine."
+        },
+        {
+            "id": "BC_2021_Q70",
+            "year": "2021",
+            "question": "A standard hydrophobic cell membrane lipid bilayer is naturally permeable to which small molecule?",
+            "options": {
+                "A": "Urea",
+                "B": "Fructose",
+                "C": "Glucose",
+                "D": "Potassium"
+            },
+            "answer": "A",
+            "explanation": "Urea is small and uncharged, allowing it to slowly pass through the lipid bilayer via simple diffusion, unlike larger sugars or charged ions."
         }
+    ],
+    "Computer Skills": [
+        # 2024 Paper
+        {
+            "id": "CS_2024_Q1",
+            "year": "2024",
+            "question": "Microsoft PowerPoint is primarily designed and used for:",
+            "options": {
+                "A": "Letter writing",
+                "B": "Games",
+                "C": "Internet browsing",
+                "D": "Presentations"
+            },
+            "answer": "D",
+            "explanation": "PowerPoint provides tools to design visual slide decks for lectures, reports, and public presentations."
+        },
+        {
+            "id": "CS_2024_Q2",
+            "year": "2024",
+            "question": "The abbreviation CPU stands for:",
+            "options": {
+                "A": "Central Processing Unit",
+                "B": "Central Processing Usage",
+                "C": "Central Programming Unit",
+                "D": "None of them"
+            },
+            "answer": "A",
+            "explanation": "The Central Processing Unit (CPU) executes software instructions and acts as the primary brain of a computer."
+        },
+        {
+            "id": "CS_2024_Q3",
+            "year": "2024",
+            "question": "Which option is used to add movement and visual effects to individual slide elements in Microsoft PowerPoint?",
+            "options": {
+                "A": "Animation",
+                "B": "Cell",
+                "C": "Formulas",
+                "D": "Document"
+            },
+            "answer": "A",
+            "explanation": "Animations introduce entrance, emphasis, or exit motion effects to specific text blocks or graphics on a slide."
+        },
+        {
+            "id": "CS_2024_Q4",
+            "year": "2024",
+            "question": "Which of the following devices is classified as an optical disk storage medium?",
+            "options": {
+                "A": "Hard Disk",
+                "B": "Floppy Disk",
+                "C": "CD-R",
+                "D": "None"
+            },
+            "answer": "C",
+            "explanation": "A CD-R (Compact Disc-Recordable) uses a laser beam to read and write data onto a reflective optical layer."
+        },
+        {
+            "id": "CS_2024_Q5",
+            "year": "2024",
+            "question": "Which storage device is most commonly used by individuals to manually transport personal files today?",
+            "options": {
+                "A": "Floppy disk",
+                "B": "Hard disk",
+                "C": "USB Flash drive",
+                "D": "CD"
+            },
+            "answer": "C",
+            "explanation": "USB flash drives offer pocket-sized, high-capacity, solid-state storage for easy file transit."
+        },
+        {
+            "id": "CS_2024_Q6",
+            "year": "2024",
+            "question": "Sending an E-mail is structurally most similar to:",
+            "options": {
+                "A": "Sending a physical package",
+                "B": "Talking on the telephone",
+                "C": "Writing a letter",
+                "D": "Drawing a picture"
+            },
+            "answer": "C",
+            "explanation": "Email mirrors traditional letter-writing, using a structured message format with fields for a subject, body text, and attachments."
+        },
+        {
+            "id": "CS_2024_Q7",
+            "year": "2024",
+            "question": "The acronym RAM stands for:",
+            "options": {
+                "A": "Random Access Memory",
+                "B": "Read Access Memory",
+                "C": "Random Accurate Memory",
+                "D": "None"
+            },
+            "answer": "A",
+            "explanation": "Random Access Memory (RAM) serves as a computer's high-speed, volatile temporary workspace for open applications."
+        },
+        {
+            "id": "CS_2024_Q8",
+            "year": "2024",
+            "question": "If you want to immediately undo your last action in a document, press:",
+            "options": {
+                "A": "Ctrl + R",
+                "B": "Ctrl + U",
+                "C": "Ctrl + X",
+                "D": "Ctrl + Z"
+            },
+            "answer": "D",
+            "explanation": "The keyboard shortcut `Ctrl + Z` is the universal command to reverse the immediate previous edit or action."
+        },
+        {
+            "id": "CS_2024_Q9",
+            "year": "2024",
+            "question": "Which program is specifically designed to open, modify, and present a presentation file?",
+            "options": {
+                "A": "Microsoft Access",
+                "B": "Microsoft Office Word",
+                "C": "Microsoft Office PowerPoint",
+                "D": "Adobe Reader"
+            },
+            "answer": "C",
+            "explanation": "Microsoft PowerPoint is the native application engineered to run `.ppt` or `.pptx` presentation files."
+        },
+        {
+            "id": "CS_2024_Q10",
+            "year": "2024",
+            "question": "The standard keyboard shortcut combination Ctrl + P is used to:",
+            "options": {
+                "A": "Print a document",
+                "B": "Copy selected text",
+                "C": "Paste text from clipboard",
+                "D": "Save a file"
+            },
+            "answer": "A",
+            "explanation": "`Ctrl + P` opens the print settings dialog box and preview layout window in most operating systems."
+        },
+        {
+            "id": "CS_2024_Q11",
+            "year": "2024",
+            "question": "Data stored in which component is completely wiped when the computer powers off?",
+            "options": {
+                "A": "ROM",
+                "B": "RAM",
+                "C": "BIOS",
+                "D": "Hard Disk"
+            },
+            "answer": "B",
+            "explanation": "RAM is a volatile memory medium that requires a continuous electrical charge to retain its data."
+        },
+        {
+            "id": "CS_2024_Q12",
+            "year": "2024",
+            "question": "What is the standard maximum storage capacity of a traditional 3.5-inch high-density Floppy Disk?",
+            "options": {
+                "A": "1.43 MB",
+                "B": "1.44 MB",
+                "C": "1.45 MB",
+                "D": "1.46 MB"
+            },
+            "answer": "B",
+            "explanation": "The industry standard formatting for double-sided high-density 3.5-inch floppy magnetic disks limits them to 1.44 Megabytes."
+        },
+        {
+            "id": "CS_2024_Q13",
+            "year": "2024",
+            "question": "Which of the following hardware options is NOT an input device?",
+            "options": {
+                "A": "Mouse",
+                "B": "Printer",
+                "C": "Keyboard",
+                "D": "Touchpad"
+            },
+            "answer": "B",
+            "explanation": "A printer is an output device because it takes digital information from the computer and renders it on physical paper."
+        },
+        {
+            "id": "CS_2024_Q14",
+            "year": "2024",
+            "question": "Decorative background colors or page effects applied to an MS Word document are hidden in:",
+            "options": {
+                "A": "Reading View",
+                "B": "Print Layout view",
+                "C": "Web layout view",
+                "D": "Print Preview"
+            },
+            "answer": "D",
+            "explanation": "Print Preview hides background fills to show exactly how the document will look on paper, saving printer ink."
+        },
+        {
+            "id": "CS_2024_Q15",
+            "year": "2024",
+            "question": "Which of the following is classified as Application Software?",
+            "options": {
+                "A": "System Calculator",
+                "B": "MS Word",
+                "C": "Video Games",
+                "D": "All of the above"
+            },
+            "answer": "D",
+            "explanation": "Application software includes any programs designed for users to perform specific productivity tasks or enjoy entertainment, separating them from the core operating system software."
+        },
 
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+        # 2023 Paper
+        {
+            "id": "CS_2023_Q1",
+            "year": "2023",
+            "question": "Which of the following components is classified as a computer Output device?",
+            "options": {
+                "A": "Keyboard",
+                "B": "Hard disk",
+                "C": "Monitor",
+                "D": "Scanner"
+            },
+            "answer": "C",
+            "explanation": "A monitor is an output device that converts processed data into a visual electronic display for the user."
+        },
+        {
+            "id": "CS_2023_Q2",
+            "year": "2023",
+            "question": "Which of the following programs is NOT a product of Microsoft Corporation?",
+            "options": {
+                "A": "Adobe PDF Reader",
+                "B": "Microsoft Word",
+                "C": "Microsoft PowerPoint",
+                "D": "Microsoft Excel"
+            },
+            "answer": "A",
+            "explanation": "Adobe PDF Reader is engineered by Adobe Inc., whereas Word, Excel, and PowerPoint are part of the Microsoft Office ecosystem."
+        },
+        {
+            "id": "CS_2023_Q3",
+            "year": "2023",
+            "question": "Which of the following options represents the newest version of Microsoft Windows (among those listed)?",
+            "options": {
+                "A": "Windows 2007",
+                "B": "Windows 8.1",
+                "C": "Windows 10",
+                "D": "Windows 7"
+            },
+            "answer": "C",
+            "explanation": "Among the choices provided, Windows 10 is the most modern operating system version released by Microsoft."
+        },
+        {
+            "id": "CS_2023_Q4",
+            "year": "2023",
+            "question": "Anti-virus software utilities protect your operating system from:",
+            "options": {
+                "A": "Viruses",
+                "B": "Malware",
+                "C": "Cyber Attacks",
+                "D": "All of the above"
+            },
+            "answer": "D",
+            "explanation": "Modern antivirus applications offer comprehensive defense suites designed to block malware, trojans, ransomware, and unauthorized intrusions."
+        },
+        {
+            "id": "CS_2023_Q5",
+            "year": "2023",
+            "question": "Microsoft Word is designed primarily for creating:",
+            "options": {
+                "A": "Professional letters and text documents",
+                "B": "Slide Presentations",
+                "C": "Data Excel Sheets",
+                "D": "None of them"
+            },
+            "answer": "A",
+            "explanation": "MS Word is a word processing application specialized for writing, formatting, and formatting text documents."
+        },
+        {
+            "id": "CS_2023_Q6",
+            "year": "2023",
+            "question": "Which button tool can you click to instantly total a series of numbers in MS Excel?",
+            "options": {
+                "A": "The AutoSum button",
+                "B": "Formula button",
+                "C": "Quick Total",
+                "D": "Add Function"
+            },
+            "answer": "A",
+            "explanation": "The AutoSum button (represented by the Greek sigma symbol $\Sigma$) quickly generates a `=SUM()` formula across a range of selected cells."
+        },
+        {
+            "id": "CS_2023_Q7",
+            "year": "2023",
+            "question": "Gmail (www.gmail.com) is widely classified as a ______ service on the web:",
+            "options": {
+                "A": "Mail service",
+                "B": "Search engine",
+                "C": "Web hosting platform",
+                "D": "Domain registrar"
+            },
+            "answer": "A",
+            "explanation": "Gmail is Google's web-based email client platform, built to send and receive electronic messages."
+        },
+        {
+            "id": "CS_2023_Q8",
+            "year": "2023",
+            "question": "What is the standard, legacy file extension used for documents created in MS Word 97-2003 formats?",
+            "options": {
+                "A": "`.doc`",
+                "B": "`.docx`",
+                "C": "`.txt`",
+                "D": "`.dot`"
+            },
+            "answer": "A",
+            "explanation": "Legacy versions of MS Word save files as binary `.doc` formats, while versions from 2007 onward use the Open XML `.docx` format."
+        },
+        {
+            "id": "CS_2023_Q9",
+            "year": "2023",
+            "question": "The Insert Ribbon Tab in MS Word allows users to add which of the following elements to a document?",
+            "options": {
+                "A": "Pictures",
+                "B": "Clip art and tables",
+                "C": "Headers and footers",
+                "D": "All of the above"
+            },
+            "answer": "D",
+            "explanation": "The Insert tab is the central hub for adding rich media, layout tables, shapes, headers, and hyperlinks into a document."
+        },
+        {
+            "id": "CS_2023_Q10",
+            "year": "2023",
+            "question": "Where can you find the built-in geometric vector shapes tools in MS Word?",
+            "options": {
+                "A": "Home tab",
+                "B": "Insert tab",
+                "C": "Review tab",
+                "D": "Design tab"
+            },
+            "answer": "B",
+            "explanation": "The Shapes catalog is located under the Illustrations menu group inside the Insert ribbon tab."
+        },
+        {
+            "id": "CS_2023_Q11",
+            "year": "2023",
+            "question": "While computer files are organized inside directory folders, folders themselves cannot be stored inside a:",
+            "options": {
+                "A": "Path string",
+                "B": "File",
+                "C": "Directory",
+                "D": "Storage Drive"
+            },
+            "answer": "B",
+            "explanation": "A file is a standalone data unit; it cannot act as a folder or directory container to house other files or subdirectories."
+        },
+        {
+            "id": "CS_2023_Q12",
+            "year": "2023",
+            "question": "Which dedicated keyboard function key runs an active PowerPoint presentation in full-screen slide show mode?",
+            "options": {
+                "A": "F5",
+                "B": "F7",
+                "C": "F11",
+                "D": "F1"
+            },
+            "answer": "A",
+            "explanation": "Pressing the `F5` function key starts the PowerPoint presentation from the first slide."
+        },
+
+        # 2021 Paper
+        {
+            "id": "CS_2021_Q1",
+            "year": "2021",
+            "question": "Which network hardware device translates incoming signals and is required to connect to the Internet?",
+            "options": {
+                "A": "Joystick",
+                "B": "Modem",
+                "C": "CD Drive",
+                "D": "NIC Card"
+            },
+            "answer": "B",
+            "explanation": "A modem (Modulator-Demodulator) translates analog signal waves from an internet provider into digital data packets for your computer."
+        },
+        {
+            "id": "CS_2021_Q2",
+            "year": "2021",
+            "question": "The abbreviation USB stands for:",
+            "options": {
+                "A": "Universal Serial Bus",
+                "B": "Unique Serial Bus",
+                "C": "Uniform Serial Board",
+                "D": "Universal System Bus"
+            },
+            "answer": "A",
+            "explanation": "Universal Serial Bus (USB) is a standard interface for connecting peripheral hardware devices to a computer."
+        },
+        {
+            "id": "CS_2021_Q3",
+            "year": "2021",
+            "question": "Special visual and sound effects applied to elements within a presentation slide are called:",
+            "options": {
+                "A": "Animations",
+                "B": "Attractions",
+                "C": "Simulations",
+                "D": "Graphics"
+            },
+            "answer": "A",
+            "explanation": "Animations control how text or objects move onto, off of, or emphasize themselves on a slide during a presentation."
+        },
+        {
+            "id": "CS_2021_Q4",
+            "year": "2021",
+            "question": "The acronym ROM stands for:",
+            "options": {
+                "A": "Random Only Memory",
+                "B": "Record Only Memory",
+                "C": "Read Only Memory",
+                "D": "None of these"
+            },
+            "answer": "C",
+            "explanation": "Read-Only Memory (ROM) is non-volatile storage that contains critical startup instructions (like BIOS) that cannot be altered."
+        },
+        {
+            "id": "CS_2021_Q5",
+            "year": "2021",
+            "question": "The acronym ALU stands for:",
+            "options": {
+                "A": "Arithmetic Logic Unit",
+                "B": "Algorithmic Logic Unit",
+                "C": "Essential Logic Unit",
+                "D": "None"
+            },
+            "answer": "A",
+            "explanation": "The Arithmetic Logic Unit (ALU) is the part of the CPU that handles all mathematical calculations and logical comparisons."
+        },
+        {
+            "id": "CS_2021_Q6",
+            "year": "2021",
+            "question": "Pre-formatted layouts containing placeholder text and design elements used to quickly start a new presentation document are called:",
+            "options": {
+                "A": "Templates",
+                "B": "Letters",
+                "C": "Wizards",
+                "D": "Sheets"
+            },
+            "answer": "A",
+            "explanation": "Templates provide pre-configured color palettes, fonts, and layouts to help jumpstart document creation."
+        },
+        {
+            "id": "CS_2021_Q7",
+            "year": "2021",
+            "question": "A hardware device that produces a tangible, physical copy of a digital document is a:",
+            "options": {
+                "A": "Printer",
+                "B": "Scanner",
+                "C": "Monitor",
+                "D": "Plotter"
+            },
+            "answer": "A",
+            "explanation": "Printers print text and graphics from soft-copy digital documents onto physical paper sheets."
+        },
+        {
+            "id": "CS_2021_Q8",
+            "year": "2021",
+            "question": "An MS Excel Workbook file is a collection of multiple open:",
+            "options": {
+                "A": "Pages",
+                "B": "Documents",
+                "C": "Sheets (Worksheets)",
+                "D": "Slides"
+            },
+            "answer": "C",
+            "explanation": "An Excel workbook acts as a single file container that holds individual grid sheets (worksheets)."
+        },
+        {
+            "id": "CS_2021_Q9",
+            "year": "2021",
+            "question": "Microsoft Word allows users to zoom into the document layout up to a maximum magnification of:",
+            "options": {
+                "A": "150%",
+                "B": "200%",
+                "C": "400%",
+                "D": "500%"
+            },
+            "answer": "D",
+            "explanation": "The maximum zoom capability limit built into Microsoft Word's layout view canvas is 500%."
+        },
+        {
+            "id": "CS_2021_Q10",
+            "year": "2021",
+            "question": "Which keyboard key deletes characters located to the immediate right of the blinking cursor text line?",
+            "options": {
+                "A": "Backspace",
+                "B": "Delete",
+                "C": "End",
+                "D": "Escape"
+            },
+            "answer": "B",
+            "explanation": "The `Delete` key clears text to the right of the cursor, while the `Backspace` key clears text to the left."
+        },
+        {
+            "id": "CS_2021_Q11",
+            "year": "2021",
+            "question": "Landscape page orientation is a type of:",
+            "options": {
+                "A": "Font style option",
+                "B": "Paper size specification",
+                "C": "Page Orientation mode",
+                "D": "Margin grid setting"
+            },
+            "answer": "C",
+            "explanation": "Page orientation settings determine if a document is formatted vertically (Portrait) or horizontally (Landscape)."
         }
+    ],
+    "Fundamentals of Nursing-I": [
+        # 2024 Paper
+        {
+            "id": "FON_2024_Q1",
+            "year": "2024",
+            "question": "This initial step of the nursing process involves the systematic collection of holistic subjective and objective client data. Name this step:",
+            "options": {
+                "A": "Assessment",
+                "B": "Diagnosis",
+                "C": "Implementation",
+                "D": "Evaluation"
+            },
+            "answer": "A",
+            "explanation": "Assessment is the foundational phase where a nurse systematically gathers comprehensive, holistic health data about a patient."
+        },
+        {
+            "id": "FON_2024_Q2",
+            "year": "2024",
+            "question": "Prompts like 'Where would you like to begin?' and 'And then what happened?' are examples of which therapeutic communication technique?",
+            "options": {
+                "A": "Providing general leads",
+                "B": "Broad opening",
+                "C": "Restating",
+                "D": "Offering self"
+            },
+            "answer": "B",
+            "explanation": "Broad openings encourage the client to take the initiative, introduce new topics, and direct the conversation."
+        },
+        {
+            "id": "FON_2024_Q3",
+            "year": "2024",
+            "question": "When a nurse finds a client's pulse rate to be elevated above normal resting limits, they document this finding as:",
+            "options": {
+                "A": "Tachypnea",
+                "B": "Hyperpyrexia",
+                "C": "Tachycardia",
+                "D": "Bradypnea"
+            },
+            "answer": "C",
+            "explanation": "Tachycardia is defined as an abnormally rapid heart rate, typically exceeding 100 beats per minute in adult patients."
+        },
+        {
+            "id": "FON_2024_Q4",
+            "year": "2024",
+            "question": "Which of the following statements is FALSE regarding normal human body temperature?",
+            "options": {
+                "A": "There is a single temperature that is normal for all people.",
+                "B": "The acceptable range of body temperature is 96.8°F to 100.4°F (36°C to 38°C).",
+                "C": "Patient temperature does not depend on age, gender, physical activity, and state of health.",
+                "D": "The most common site of taking body temperature is the axilla."
+            },
+            "answer": "A",
+            "explanation": "Body temperature naturally fluctuates and varies among individuals; there is no single fixed 'normal' temperature for everyone."
+        },
+        {
+            "id": "FON_2024_Q5",
+            "year": "2024",
+            "question": "A situation where a patient's peripheral arterial pulse waves do not match their actual central cardiac contractions indicates a:",
+            "options": {
+                "A": "Pulsus alternans",
+                "B": "Pulse deficit",
+                "C": "Bounding pulse",
+                "D": "Thready pulse"
+            },
+            "answer": "B",
+            "explanation": "A pulse deficit occurs when cardiac contractions are too weak to create a palpable peripheral pulse, leading to a difference between apical and radial pulse rates."
+        },
+        {
+            "id": "FON_2024_Q6",
+            "year": "2024",
+            "question": "The educational process health professionals use to share info with patients and caregivers to improve health status or change health behaviors is called:",
+            "options": {
+                "A": "Patient Teaching",
+                "B": "Patient Counseling",
+                "C": "Advocacy",
+                "D": "All of the above"
+            },
+            "answer": "A",
+            "explanation": "Patient teaching is explicitly focused on sharing knowledge to help patients build self-care skills and make healthy behavior changes."
+        },
+        {
+            "id": "FON_2024_Q7",
+            "year": "2024",
+            "question": "Expected or normal patient behavioral reactions to being hospitalized include:",
+            "options": {
+                "A": "Changes in self-concept and routine behavior patterns",
+                "B": "Seeking exemption from everyday social roles and duties",
+                "C": "Feeling an obligation to try and recover as quickly as possible",
+                "D": "All of the above"
+            },
+            "answer": "D",
+            "explanation": "Hospitalization disrupts an individual's normal life, triggering typical adaptations associated with the sociological 'sick role.'"
+        },
+        {
+            "id": "FON_2024_Q8",
+            "year": "2024",
+            "question": "In early civilization, all of the following Greek philosophers/figures sought to study medicine and human nature EXCEPT:",
+            "options": {
+                "A": "Hippocrates",
+                "B": "Apollo",
+                "C": "Aristippus",
+                "D": "Galen"
+            },
+            "answer": "B",
+            "explanation": "Apollo is a figure from Greek mythology, not an actual historical philosopher or physician like Hippocrates or Galen."
+        },
+        {
+            "id": "FON_2024_Q9",
+            "year": "2024",
+            "question": "Any biological, physical, or chemical agent that has the potential to cause harm or injury is called a:",
+            "options": {
+                "A": "Safety parameter",
+                "B": "Risk profile",
+                "C": "Hazard",
+                "D": "Danger"
+            },
+            "answer": "C",
+            "explanation": "A hazard is defined as any source or condition that has the potential to cause harm, illness, or property damage."
+        },
+        {
+            "id": "FON_2024_Q10",
+            "year": "2024",
+            "question": "Reciprocal, two-way interaction and communication between individuals is also termed:",
+            "options": {
+                "A": "Dual communication",
+                "B": "Socratic method",
+                "C": "Transactional model",
+                "D": "Dynamic communication"
+            },
+            "answer": "A",
+            "explanation": "Two-way communication involves a continuous cycle of messages and feedback between sender and receiver, often referred to as dual communication."
+        },
+        {
+            "id": "FON_2024_Q11",
+            "year": "2024",
+            "question": "A partial rebreather oxygen mask delivers oxygen concentrations between 60% and 90% at which flow rate range?",
+            "options": {
+                "A": "6–10 L/min",
+                "B": "10–15 L/min",
+                "C": "1–4 L/min",
+                "D": "4–6 L/min"
+            },
+            "answer": "A",
+            "explanation": "To keep the reservoir bag from completely collapsing during inhalation, partial rebreathers require minimum flow rates of 6 to 10 liters per minute."
+        },
+        {
+            "id": "FON_2024_Q12",
+            "year": "2024",
+            "question": "RN Sadaf is assessing a patient at the end of an intervention to determine if the care goals were met. Which step of the nursing process is this?",
+            "options": {
+                "A": "Evaluation",
+                "B": "Assessment",
+                "C": "Diagnosis",
+                "D": "Planning"
+            },
+            "answer": "A",
+            "explanation": "Evaluation measures the patient's progress against established outcome criteria to judge the effectiveness of the nursing care."
+        },
+        {
+            "id": "FON_2024_Q13",
+            "year": "2024",
+            "question": "The measurable intensity or degree of sensible thermal heat present within an organism or substance is called:",
+            "options": {
+                "A": "Pulse",
+                "B": "Temperature",
+                "C": "Respiration",
+                "D": "Blood Pressure"
+            },
+            "answer": "B",
+            "explanation": "Temperature is the quantitative scientific measure of internal thermal energy or sensible heat."
+        },
 
-        header {
-            width: 100%;
-            max-width: 800px;
-            margin-bottom: 30px;
-            text-align: center;
-            position: relative;
+        # 2023 Paper
+        {
+            "id": "FON_2023_Q1",
+            "year": "2023",
+            "question": "To best identify relevant nursing diagnoses for an admitted patient, a nurse should use a data collection form structured around:",
+            "options": {
+                "A": "Maslow's hierarchy of needs",
+                "B": "A body systems medical model",
+                "C": "Gordon's functional health patterns",
+                "D": "A standard head-to-toe framework"
+            },
+            "answer": "C",
+            "explanation": "Marjory Gordon's 11 Functional Health Patterns provide a holistic nursing framework designed to lead directly to NANDA nursing diagnoses."
+        },
+        {
+            "id": "FON_2023_Q2",
+            "year": "2023",
+            "question": "Which of the following actions best demonstrates a nurse's professional role in health promotion?",
+            "options": {
+                "A": "Performing routine health appraisals",
+                "B": "Teaching clients to be informed, effective health consumers",
+                "C": "Managing worksite wellness initiatives",
+                "D": "Coordinating clinical discharge planning"
+            },
+            "answer": "B",
+            "explanation": "Nurses promote health by educating patients, empowering them to make independent, healthy choices."
+        },
+        {
+            "id": "FON_2023_Q3",
+            "year": "2023",
+            "question": "The initial proposal to establish a global health agency was introduced at the UN Conference on International Organization in California in which year?",
+            "options": {
+                "A": "1945",
+                "B": "1947",
+                "C": "1948",
+                "D": "1946"
+            },
+            "answer": "A",
+            "explanation": "The foundational plans for a unified global health organization (the WHO) were first proposed at the San Francisco United Nations Conference in 1945."
+        },
+        {
+            "id": "FON_2023_Q4",
+            "year": "2023",
+            "question": "The nursing process is a systematic, problem-solving approach that adapts to changes in a client's health status. It is considered a ______ process:",
+            "options": {
+                "A": "Static",
+                "B": "Variant",
+                "C": "Dynamic",
+                "D": "Fixed"
+            },
+            "answer": "C",
+            "explanation": "The nursing process is dynamic and open-ended, continuously shifting in response to the patient's evolving clinical needs."
+        },
+        {
+            "id": "FON_2023_Q5",
+            "year": "2023",
+            "question": "Fatima feels consistently excluded from group activities, becoming lonely and depressed. According to Maslow, which tier of needs is unfulfilled?",
+            "options": {
+                "A": "Love and belonging needs",
+                "B": "Physiological needs",
+                "C": "Psychological safety needs",
+                "D": "Self-esteem needs"
+            },
+            "answer": "A",
+            "explanation": "Feeling accepted by peers and integrated into social groups belongs to Maslow's 'Love and Belonging' tier."
+        },
+        {
+            "id": "FON_2023_Q6",
+            "year": "2023",
+            "question": "You are assigned to care for a newly admitted patient in the medical unit. What is your very first action before starting care?",
+            "options": {
+                "A": "Call the attending physician",
+                "B": "Consult with the head unit nurse",
+                "C": "Administer ordered medications",
+                "D": "Assess the patient"
+            },
+            "answer": "D",
+            "explanation": "A nurse must perform an initial assessment to gather essential baseline data before planning or implementing any nursing care."
+        },
+        {
+            "id": "FON_2023_Q62",
+            "year": "2023",
+            "question": "When a nurse communicates a client's needs, rights, and preferences to the wider healthcare team, they are fulfilling the role of:",
+            "options": {
+                "A": "Client Advocate",
+                "B": "Counselor",
+                "C": "Communicator",
+                "D": "Change Agent"
+            },
+            "answer": "A",
+            "explanation": "As a client advocate, the nurse represents the patient's choices and protects their rights when they cannot do so themselves."
+        },
+        {
+            "id": "FON_2023_Q63",
+            "year": "2023",
+            "question": "In which professional role is a nurse expected to be proactive rather than reactive, driving improvements in care?",
+            "options": {
+                "A": "Leader",
+                "B": "Caregiver",
+                "C": "Change agent",
+                "D": "Counselor"
+            },
+            "answer": "C",
+            "explanation": "Change agents identify problems and proactively design and implement strategy shifts to improve health behaviors and care systems."
+        },
+        {
+            "id": "FON_2023_Q65",
+            "year": "2023",
+            "question": "A cohesive set of expected behaviors, institutional rights, and responsibilities associated with a professional status is defined as a:",
+            "options": {
+                "A": "Duty",
+                "B": "Assignment",
+                "C": "Role",
+                "D": "Responsibility"
+            },
+            "answer": "C",
+            "explanation": "A professional role describes the behaviors, responsibilities, and rights linked to a specific position."
+        },
+        {
+            "id": "FON_2023_Q66",
+            "year": "2023",
+            "question": "Which analytical method is a nurse using when they evaluate multiple options to find the best care solution for an infected wound?",
+            "options": {
+                "A": "Intuition",
+                "B": "Research process",
+                "C": "Trial and error",
+                "D": "Problem solving"
+            },
+            "answer": "D",
+            "explanation": "Systematic problem-solving involves gathering facts, assessing alternative solutions, and applying an effective intervention."
+        },
+        {
+            "id": "FON_2023_Q67",
+            "year": "2023",
+            "question": "When a nurse relies on clinical judgment and critical thinking to choose the safest course of action for a patient, they are acting as a:",
+            "options": {
+                "A": "Decision maker",
+                "B": "Caregiver",
+                "C": "Change agent",
+                "D": "Counselor"
+            },
+            "answer": "A",
+            "explanation": "The decision-maker role requires a nurse to analyze critical information and choose the most effective intervention from several options."
+        },
+        {
+            "id": "FON_2023_Q70",
+            "year": "2023",
+            "question": "According to Maslow's hierarchy of human needs, the highest level of human development is:",
+            "options": {
+                "A": "Safety and security",
+                "B": "Esteem and self-respect",
+                "C": "Self actualization",
+                "D": "Love and belonging"
+            },
+            "answer": "C",
+            "explanation": "Self-actualization sits at the top of Maslow's pyramid, representing an individual achieving their full potential."
+        },
+
+        # 2022 Paper
+        {
+            "id": "FON_2022_Q1",
+            "year": "2022",
+            "question": "Which pressure ulcer risk-assessment tool was developed in the United Kingdom specifically for pediatric patients?",
+            "options": {
+                "A": "Braden Q Scale",
+                "B": "Glamorgan Scale",
+                "C": "Norton Scale",
+                "D": "Waterlow Scale"
+            },
+            "answer": "B",
+            "explanation": "The Glamorgan scale was created in the UK specifically to provide an accurate, evidence-based pressure injury risk assessment for pediatric hospital settings."
+        },
+        {
+            "id": "FON_2022_Q2",
+            "year": "2022",
+            "question": "Hospital care standards classify patient restraints into how many primary categories?",
+            "options": {
+                "A": "1",
+                "B": "2",
+                "C": "3",
+                "D": "4"
+            },
+            "answer": "C",
+            "explanation": "Restraints are grouped into three main categories: physical/mechanical, chemical, and environmental/seclusion."
+        },
+        {
+            "id": "FON_2022_Q4",
+            "year": "2022",
+            "question": "An admission scheduled in advance for corrective surgery (such as a deviated nasal septum) is classified as an:",
+            "options": {
+                "A": "Elective admission",
+                "B": "Planned admission",
+                "C": "Emergency admission",
+                "D": "Both A and B"
+            },
+            "answer": "D",
+            "explanation": "Scheduled surgeries that are not immediate emergencies are referred to as both elective and planned admissions."
+        },
+        {
+            "id": "FON_2022_Q6",
+            "year": "2022",
+            "question": "______ is the transfer of heat between two objects through direct physical contact, moving from the warmer object to the cooler one:",
+            "options": {
+                "A": "Radiation",
+                "B": "Convection",
+                "C": "Conduction",
+                "D": "Evaporation"
+            },
+            "answer": "C",
+            "explanation": "Conduction requires direct physical contact to transfer thermal energy between objects."
+        },
+        {
+            "id": "FON_2022_Q7",
+            "year": "2022",
+            "question": "On which bony prominences do pressure injuries develop most frequently in bedridden patients?",
+            "options": {
+                "A": "Hands and neck",
+                "B": "Coccyx and neck",
+                "C": "Sacrum and coccyx",
+                "D": "Back of the head and hands"
+            },
+            "answer": "C",
+            "explanation": "The sacrum and coccyx bear the highest pressure load when lying supine, making them common sites for skin breakdown."
+        },
+        {
+            "id": "FON_2022_Q63",
+            "year": "2022",
+            "question": "Workplace harassment is an example of which type of occupational hazard?",
+            "options": {
+                "A": "Physical hazard",
+                "B": "Psychological hazard",
+                "C": "Biological hazard",
+                "D": "Chemical hazard"
+            },
+            "answer": "B",
+            "explanation": "Harassment creates severe chronic stress and emotional strain, classifying it as a psychological hazard."
+        },
+        {
+            "id": "FON_2022_Q64",
+            "year": "2022",
+            "question": "A pressure injury with full-thickness tissue loss where the wound bed is completely covered by slough or eschar is classified as:",
+            "options": {
+                "A": "Stage 1",
+                "B": "Stage 3",
+                "C": "Stage 4",
+                "D": "Unstageable"
+            },
+            "answer": "D",
+            "explanation": "If slough or eschar conceals the base of a pressure injury, the true depth of tissue damage cannot be determined, making it unstageable until debrided."
+        },
+        {
+            "id": "FON_2022_Q65",
+            "year": "2022",
+            "question": "An assistive staff member reports highly abnormal vital signs (BP 200/146) for a newly admitted client. What should the nurse do first?",
+            "options": {
+                "A": "Immediately retake and verify the vital signs themselves",
+                "B": "Call the attending physician",
+                "C": "Report the findings to the charge nurse",
+                "D": "Document the reported readings"
+            },
+            "answer": "A",
+            "explanation": "The nurse must personally reassess the patient to validate highly unusual or critical data before implementing interventions or notifying the provider."
+        },
+        {
+            "id": "FON_2022_Q66",
+            "year": "2022",
+            "question": "A physician prescribes oxygen therapy at 8 L/minute. Which oxygen delivery device is most appropriate for this flow rate?",
+            "options": {
+                "A": "Standard Nasal Cannula",
+                "B": "Simple Face Mask",
+                "C": "Non-Rebreather Mask",
+                "D": "Venturi Mask"
+            },
+            "answer": "B",
+            "explanation": "Simple face masks are designed for moderate flow rates between 5 and 10 L/min. Standard nasal cannulas are unsafe and ineffective at 8 L/min."
+        },
+        {
+            "id": "FON_2022_Q67",
+            "year": "2022",
+            "question": "Which oxygen delivery device is an effective alternative for a patient who feels claustrophobic or poorly tolerates a standard face mask?",
+            "options": {
+                "A": "Nasal Cannula",
+                "B": "Venturi mask",
+                "C": "Face Tent",
+                "D": "Partial rebreather mask"
+            },
+            "answer": "C",
+            "explanation": "Face tents fit loosely around the chin and face, providing humidified oxygen comfortably for patients who tolerate tight masks poorly."
+        },
+        {
+            "id": "FON_2022_Q69",
+            "year": "2022",
+            "question": "Which client scenario meets the primary clinical criteria for selecting the apical site for pulse assessment?",
+            "options": {
+                "A": "A client who is in hypovolemic shock",
+                "B": "A client with a known cardiac arrhythmia",
+                "C": "A client with a healthy cardiovascular history",
+                "D": "All of the above"
+            },
+            "answer": "B",
+            "explanation": "A central apical pulse check is required for patients with irregular heart rhythms, as peripheral pulses may not reliably reflect every cardiac contraction."
         }
+    ]
+}
 
-        h1 {
-            color: var(--primary);
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
+def display_quiz_menu():
+    print("=" * 60)
+    print("      BSN 1ST SEMESTER PAST PAPERS QUIZ ENGINE")
+    print("=" * 60)
+    subjects = list(QUESTION_BANK.keys())
+    for index, subject in enumerate(subjects, 1):
+        print(f" [{index}] {subject} ({len(QUESTION_BANK[subject])} Questions)")
+    print(" [0] Exit Engine")
+    print("-" * 60)
 
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        .back-btn {
-            position: absolute;
-            left: 0;
-            top: 10px;
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            display: none;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .back-btn:hover {
-            background: var(--surface);
-            border-color: var(--text-muted);
-        }
-
-        .container {
-            width: 100%;
-            max-width: 800px;
-            background: var(--surface);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
-            border: 1px solid var(--border);
-        }
-
-        .dynamic-view {
-            display: none;
-        }
-
-        .active-view {
-            display: block;
-            animation: fadeIn 0.3s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h2 {
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 10px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .card {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: var(--primary);
-            box-shadow: 0 4px 20px rgba(2, 132, 199, 0.2);
-        }
-
-        .card h3 {
-            color: var(--primary);
-        }
-
-        .card p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            line-height: 1.4;
-        }
-
-        /* QUIZ ENGINE STYLING */
-        .question-box {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-
-        .options-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 25px;
-        }
-
-        .option-btn {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 16px;
-            border-radius: 10px;
-            text-align: left;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 500;
-        }
-
-        .option-btn:hover:not(:disabled) {
-            background: var(--surface);
-            border-color: var(--primary);
-            padding-left: 20px;
-        }
-
-        .option-btn.correct {
-            background: rgba(34, 197, 94, 0.2) !important;
-            border-color: var(--correct) !important;
-            color: #4ade80;
-            font-weight: 600;
-        }
-
-        .option-btn.wrong {
-            background: rgba(239, 68, 68, 0.2) !important;
-            border-color: var(--wrong) !important;
-            color: #f87171;
-        }
-
-        .explanation {
-            background: rgba(2, 132, 199, 0.1);
-            border-left: 4px solid var(--primary);
-            padding: 15px;
-            border-radius: 0 8px 8px 0;
-            margin-bottom: 25px;
-            line-height: 1.5;
-            display: none;
-        }
-
-        .action-bar {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .control-btn {
-            padding: 12px 24px;
-            border-radius: 8px;
-            border: none;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .primary-control {
-            background: var(--primary);
-            color: white;
-        }
-
-        .primary-control:hover { background: var(--primary-hover); }
-
-        .secondary-control {
-            background: #475569;
-            color: white;
-        }
-
-        .secondary-control:hover { background: #334155; }
-
-        /* RESULTS STYLING */
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .stat-box {
-            background: var(--bg);
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-        }
-
-        .stat-num {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-top: 5px;
-        }
-
-        #stat-correct { color: var(--correct); }
-        #stat-wrong { color: var(--wrong); }
-        #stat-skipped { color: var(--text-muted); }
-
-        .feedback-note {
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 30px;
-            color: #e2e8f0;
-        }
-
-        /* STATION STYLING */
-        .station-section {
-            margin-top: 40px;
-            border-top: 2px dashed var(--border);
-            padding-top: 30px;
-        }
-
-        .station-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-        }
-
-        .station-card {
-            background: #1e293b;
-            border: 1px dashed var(--primary);
-            border-radius: 12px;
-            padding: 20px;
-        }
-
-        .station-card h4 {
-            color: var(--primary);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .station-card input {
-            width: 100%;
-            padding: 10px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            color: white;
-            margin-bottom: 10px;
-        }
-
-        .station-card button {
-            width: 100%;
-            padding: 8px;
-            border-radius: 6px;
-            border: none;
-            background: var(--primary);
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .station-card button:hover { background: var(--primary-hover); }
-
-        .log-msg {
-            font-size: 0.85rem;
-            color: #34d399;
-            margin-top: 8px;
-            min-height: 18px;
-        }
-
-        .crypto-btn-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .crypto-btn {
-            flex: 1;
-            padding: 8px !important;
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <button id="back-button" class="back-btn" onclick="goBack()">← Back</button>
-        <h1>Nursing Quiz Hub</h1>
-        <p class="subtitle">KPK Professional BSN Board Exam Practice Platform</p>
-    </header>
-
-    <main class="container">
-
-        <div id="view-main" class="dynamic-view active-view">
-            <h2>Select Board/Region</h2>
-            <div class="grid">
-                <div class="card" onclick="selectRegion('swat')">
-                    <h3>⛰️ Swat & Peshawar Region</h3>
-                    <p>Access authorized KMU affiliated past papers, structured term questions, and local key matrices.</p>
-                </div>
-            </div>
-
-            <div class="station-section">
-                <h3 style="margin-bottom: 15px; color: var(--text-muted);">⚡ Umar's Development Sandbox</h3>
-                <div class="station-grid">
-                    
-                    <div class="station-card">
-                        <h4>🏋️ Calisthenics Tracker</h4>
-                        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:10px;">Log active sets (Pull-ups, Split Squats, L-sits):</p>
-                        <input type="number" id="reps-input" placeholder="Enter total reps achieved...">
-                        <button onclick="logWorkout()">Log Movement</button>
-                        <div id="workout-log-msg" class="log-msg"></div>
-                    </div>
-
-                    <div class="station-card">
-                        <h4>📱 Detox Creator Hook</h4>
-                        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:10px;">Generate a TikTok concept outline for your mobile detox challenge:</p>
-                        <button onclick="generateVideoIdea()">Generate Outline</button>
-                        <div id="video-idea-box" style="font-size:0.85rem; color:#e2e8f0; margin-top:10px; font-style:italic;"></div>
-                    </div>
-
-                    <div class="station-card">
-                        <h4>📈 Perpetual Funding Check</h4>
-                        <p style="font-size:0.85rem; color:var(--text-muted);">If funding rates turn deep negative on Binance volume pairs, who pays whom?</p>
-                        <div class="crypto-btn-group">
-                            <button class="crypto-btn" onclick="checkCrypto(true)">Shorts pay Longs</button>
-                            <button class="crypto-btn" onclick="checkCrypto(false)">Longs pay Shorts</button>
-                        </div>
-                        <div id="crypto-ans" style="font-size:0.85rem; margin-top:8px; font-weight:500;"></div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div id="view-years" class="dynamic-view">
-            <h2 id="years-title">Select Year</h2>
-            <div class="grid">
-                <div class="card" onclick="selectYear('2024')">
-                    <h3>📅 2024</h3>
-                    <p>View authentic subject papers from the 2024 board term.</p>
-                </div>
-                <div class="card" onclick="selectYear('2023')">
-                    <h3>📅 2023</h3>
-                    <p>View authentic subject papers from the 2023 board term.</p>
-                </div>
-                <div class="card" onclick="selectYear('2021')">
-                    <h3>📅 2021</h3>
-                    <p>View authentic subject papers from the 2021 board term.</p>
-                </div>
-                <div class="card" onclick="selectYear('2020')">
-                    <h3>📅 2020</h3>
-                    <p>View authentic subject papers from the 2020 board term.</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="view-subjects" class="dynamic-view">
-            <h2 id="subjects-title">Select Subject</h2>
-            <div class="grid">
-                <div class="card" onclick="startQuiz('fon')">
-                    <h3>🩺 Fundamentals of Nursing - I</h3>
-                    <p>Practice clean safety metrics, professional ethics models, and patient alignment protocols.</p>
-                </div>
-                <div class="card" onclick="startQuiz('anatomy')">
-                    <h3>🦴 Anatomy & Physiology - I</h3>
-                    <p>Master joint mechanics, cellular structures, tissue organization, and cardiovascular pathways.</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="view-quiz" class="dynamic-view">
-            <h2 id="quiz-title">Quiz Session</h2>
-            <div id="question-text" class="question-box">Loading question text...</div>
-            <div id="options-container" class="options-list"></div>
-            <div id="explanation-box" class="explanation"></div>
-            <div class="action-bar">
-                <button id="skip-button" class="control-btn secondary-control" onclick="skipQuestion()">Skip Question</button>
-                <button id="next-button" class="control-btn primary-control" style="display:none;" onclick="nextQuestion()">Next Question →</button>
-            </div>
-        </div>
-
-        <div id="view-results" class="dynamic-view">
-            <h2>Performance Report</h2>
-            <div class="results-grid">
-                <div class="stat-box">
-                    <div style="color:var(--text-muted); font-weight:600;">Correct</div>
-                    <div id="stat-correct" class="stat-num">0</div>
-                </div>
-                <div class="stat-box">
-                    <div style="color:var(--text-muted); font-weight:600;">Incorrect</div>
-                    <div id="stat-wrong" class="stat-num">0</div>
-                </div>
-                <div class="stat-box">
-                    <div style="color:var(--text-muted); font-weight:600;">Skipped</div>
-                    <div id="stat-skipped" class="stat-num">0</div>
-                </div>
-            </div>
-            <div id="feedback-message" class="feedback-note"></div>
-            <button class="control-btn primary-control" style="width:100%;" onclick="returnToDashboard()">Return to Hub Dashboard</button>
-        </div>
-
-    </main>
-
-    <script>
-        const quizDatabase = {
-            swat: {
-                "2024": {
-                    fon: [
-                        { question: "A nurse identifies a loose electrical wire near a patient's bed. What type of hazard is this?", options: ["Psychological", "Physical", "Personal", "Biological"], correct: 1, explanation: "Loose electrical wiring represents an environmental risk factor capable of causing bodily harm or fire, placing it under physical hazards." },
-                        { question: "A health care team is considering the implications of the WHO's definition of nursing. Which core principle should they focus on?", options: ["Management of chronic diseases", "Research-based practice", "Educating the populace on nutrition", "Promotion of health and prevention of illness"], correct: 3, explanation: "The World Health Organization (WHO) definition emphasizes holistic care, centered prominently on health promotion, maintenance, and illness prevention." },
-                        { question: "A nursing student learns that the community expects nurses to perform holistically, addressing physical, emotional, and spiritual needs. This understanding aligns with:", options: ["Nightingale's focus on environment", "Henderson's definition of independence", "The traditional clinical skills", "Watson's caring theory"], correct: 3, explanation: "Jean Watson's Caring Theory focuses on a holistic view of human beings, incorporating physical, emotional, and spiritual elements into patient healing." },
-                        { question: "According to Maslow's Hierarchy of Needs, which of the following is NOT included in the esteem or self-esteem needs?", options: ["Achievement", "Reputation", "Self-respect", "Nutritious food"], correct: 3, explanation: "Nutritious food is a physiological need, which forms the foundational base of Maslow's hierarchy, not an esteem need." },
-                        { question: "A patient in lateral position is most at risk for ulcers on the:", options: ["Greater trochanter", "Sacrum", "Occiput", "Scapula"], correct: 0, explanation: "In a side-lying (lateral) position, the greatest localized bony pressure is placed over the greater trochanter of the hip." },
-                        { question: "A patient with heart failure has a pulse pressure of 20 mmHg. How would the nurse interpret this?", options: ["Unmeasurable", "Widened", "Narrowed", "Normal"], correct: 2, explanation: "Normal pulse pressure is roughly 30-40 mmHg. A lower pulse pressure (like 20 mmHg) indicates a narrowed pulse pressure, common in heart failure." },
-                        { question: "Which of the following is NOT a role of a nurse?", options: ["Client advocate", "Teacher", "Technician", "Counselor"], correct: 2, explanation: "While nurses handle medical machinery daily, their professional definitions cover advocacy, education, and counseling roles rather than a pure technician designation." },
-                        { question: "A nurse is helping a patient understand wound care after discharge. Which method ensures understanding?", options: ["Giving verbal instructions", "Handing written notes", "Showing a video", "Teach-back method"], correct: 3, explanation: "The Teach-Back method is the gold standard assessment tool where patients explain or demonstrate instructions back to confirm exact comprehension." },
-                        { question: "After a student successfully inserts an IV cannula, the clinical instructor offers praise. This is an example of:", options: ["Practice", "Motivation", "Reinforcement", "Feedback"], correct: 2, explanation: "Praise functions as positive reinforcement, which rewards a specific correct behavior to ensure the student repeats it accurately in future practice." },
-                        { question: "A nurse advises a patient to bend their elbow. What joint movement is this?", options: ["Flexion", "Extension", "Supination", "Abduction"], correct: 0, explanation: "Flexion decreases the angle between two articulating bones, such as bending the elbow joint." },
-                        { question: "Which symptom is common in a person having a heart attack?", options: ["Headache only", "Abdominal pain only", "Chest pain", "Leg cramps"], correct: 2, explanation: "Classic acute myocardial infarction (heart attack) presents with crushing substernal chest pain that can radiate to the arm or jaw." },
-                        { question: "Which factor affects balance by providing a wider base of support?", options: ["Center of gravity", "Muscle tone", "Base of support", "Line of gravity"], correct: 2, explanation: "Spreading the feet apart directly widens the base of support, stabilizing structural balance." },
-                        { question: "What is the purpose of the 'Teach-Back Method'?", options: ["Correct medication errors only", "Teach staff new skills", "Confirm patient understanding", "Teach family members only"], correct: 2, explanation: "The main purpose of Teach-Back is checking safety metrics by confirming that the patient understands their care plan." },
-                        { question: "What differentiates nursing from an occupation pursued primarily for profit?", options: ["Specialized education", "Profit orientation", "Autonomy", "Service orientation"], correct: 3, explanation: "A true profession is defined by its core service orientation, prioritizing altruistic welfare and patient care over profit lines." },
-                        { question: "A patient lying flat starts choking on oral secretions. What is the immediate nursing action?", options: ["Turn to lateral position", "Give bronchodilator", "Offer water", "Give oxygen"], correct: 0, explanation: "Turning the patient to a side-lying (lateral) position instantly uses gravity to clear secretions and protect the airway from aspiration." },
-                        { question: "Which environmental factor can hinder mobility?", options: ["Slippery floors", "Proper assistive devices", "Safe surroundings", "Accessible furniture"], correct: 0, explanation: "Slippery floors create a direct physical hazard that increases fall risks, hindering a patient's safe mobility." },
-                        { question: "A nurse practicing in Pakistan is advocating for better staffing as per PNC recommendations. What is their main concern?", options: ["Shortage of nurses leading to high workload", "workload Lack of modern equipment", "Excess of trained nurses in rural areas", "Overstaffing nursing units"], correct: 0, explanation: "The Pakistan Nursing Council (PNC) outlines strict nurse-to-patient ratios to combat high staff shortages and heavy workloads." },
-                        { question: "A patient recovering from surgery has a core body temperature of 35°C (95°F). What is this condition called?", options: ["Hyperthermia", "Pyrexia", "Hypothermia", "Heat stroke"], correct: 2, explanation: "A core body temperature falling below 35°C (95°F) is clinically defined as hypothermia." },
-                        { question: "What is the first step in hospital admission?", options: ["Initial assessment", "Patient transfer", "Medication administration", "Discharge planning"], correct: 0, explanation: "Hospital admission processes always begin with an initial nursing assessment to establish vital baselines and identify urgent needs." },
-                        { question: "Which characteristic of normal body movement ensures joint flexibility?", options: ["Muscle Tone", "Gait", "Range of Motion (ROM)", "Posture"], correct: 2, explanation: "Range of Motion (ROM) is the specific degree of movement potential a joint possesses, ensuring baseline flexibility." },
-                        { question: "Which of the following roles allows nurses to provide primary care services independently?", options: ["Nurse Assistant", "Nurse Administrator", "Nurse Practitioner", "Staff Nurse"], correct: 2, explanation: "Nurse Practitioners (NPs) possess advanced degrees allowing them to examine patients, diagnose conditions, and prescribe medications independently." },
-                        { question: "A teacher uses group discussion to encourage learners to explore and solve problems. What type of teaching is this?", options: ["Primary", "Lecture", "Direct", "Indirect"], correct: 3, explanation: "Indirect teaching is learner-centered, utilizing activities like discussions or case studies to guide students toward independent problem-solving." },
-                        { question: "Nursing is the 'diagnosis and Treatment of human response to actual and potential health problems'. This definition is given by", options: ["PNA", "PNC", "ICN", "ANA"], correct: 3, explanation: "The American Nurses Association (ANA) formulated this official baseline definition to establish clear professional boundaries for modern nursing." },
-                        { question: "Which device is commonly used to give oxygen to patients?", options: ["Serum IV", "Thermometer", "Blood pressure cuff", "Nasal cannula"], correct: 3, explanation: "A nasal cannula is a two-pronged lightweight plastic device inserted into the nostrils to deliver supplemental oxygen." },
-                        { question: "Which technique is considered an interfering technique in therapeutic communication?", options: ["Empathy Statements", "Silence", "Judgmental Responses", "Reflective Responses"], correct: 2, explanation: "Giving judgmental responses cuts off open communication by making the patient feel defensive, breaking down the therapeutic connection." },
-                        { question: "What should a nurse do first if a patient has trouble breathing?", options: ["Check the patient's airway and comfort", "Give the patient a glass of water", "Turn the patient to the side", "Call the doctor only"], correct: 0, explanation: "Following emergency nursing priorities (ABCs), verifying airway patency and maximizing thoracic expansion comes before all other actions." },
-                        { question: "A patient is worried and disoriented after hospital admission. What should the nurse do first?", options: ["Orient the patient", "Call family", "Begin discharge planning", "Start medication"], correct: 0, explanation: "Providing immediate, clear reorientation to time, place, and surroundings lowers acute anxiety and keeps the patient safe." },
-                        { question: "Which factor can limit mobility due to fear of falling?", options: ["Adequate nutrition", "High bone density", "Muscle strength", "Lack of confidence"], correct: 3, explanation: "A psychological lack of confidence or anxiety about falls directly limits a patient's willingness to ambulate independently." },
-                        { question: "A patient's blood pressure drops from 120/80 mmHg to 90/60 mmHg upon standing. What is this condition called?", options: ["Kussmaul's respiration", "Hypertension", "Orthostatic hypotension", "Pulse pressure deficit"], correct: 2, explanation: "Orthostatic (or postural) hypotension is a significant drop in blood pressure that occurs when moving to an upright position." },
-                        { question: "A nurse assesses a patient's radial pulse as weak and difficult to palpate. How should this be documented?", options: ["Regular", "Absent", "Thready", "Bounding"], correct: 2, explanation: "A rapid, faint pulse that is easily obliterated with light finger pressure is documented as thready." },
-                        { question: "A patient in a wheelchair has not been repositioned for several hours. The nurse notices a risk for pressure ulcers. How often should the patient shift position to prevent bed sores?", options: ["Every 8 hours", "Once daily", "Every 15 minutes", "Every 4 hours"], correct: 2, explanation: "While bedbound individuals require turning every 2 hours, wheelchair-bound patients experience higher pressure over ischial structures and should shift weight every 15 minutes." },
-                        { question: "Which health care team member is responsible for dispensing medications?", options: ["Physician", "Social Worker", "Nurse", "Pharmacist"], correct: 3, explanation: "Pharmacists are licensed to compound and dispense ordered medical drugs safely, while the nurse's role focuses on safe administration." },
-                        { question: "What is the process of converting the message into symbols, words, or gestures called?", options: ["Channeling", "Encoding", "Feedback", "Decoding"], correct: 1, explanation: "Encoding is the communication process where the sender transforms thoughts or information into transmittable words, symbols, or behaviors." },
-                        { question: "Which WBC produces antibodies?", options: ["NK cells", "B-lymphocytes", "Basophils", "Monocytes"], correct: 1, explanation: "B-lymphocytes mature into plasma cells, which are directly responsible for synthesizing and secreting custom protective antibodies." }
-                    ],
-                    anatomy: [
-                        { question: "Which statement is NOT true regarding skeletal joints?", options: ["A condyloid joint is triaxial", "Synovial fluid reduces friction", "Coronal suture is for parietal and frontal bone articulation", "Synostosis is a bony joint"], correct: 0, explanation: "Condyloid joints are biaxial (allowing movement in two planes: flexion/extension and abduction/adduction), not triaxial." },
-                        { question: "Which of the following is considered the powerhouse of the cell?", options: ["Mitochondria", "Golgi Body", "Endoplasmic Reticulum", "Ribosomes"], correct: 0, explanation: "Mitochondria generate most of the cell's supply of adenosine triphosphate (ATP), used as a source of chemical energy." },
-                        { question: "The receptors for hormones such as estrogen and parathyroid hormone are present in:", options: ["Osteoblasts", "Osteocytes", "Osteoclasts", "None of the above"], correct: 0, explanation: "Osteoblasts contain prominent receptors for parathyroid hormone and estrogen to coordinate bone deposition and metabolic remodeling." },
-                        { question: "What is the first process that occurs immediately after a blood vessel is damaged?", options: ["Haemolysis", "Vasoconstriction", "Platelet plug formation", "Coagulation"], correct: 1, explanation: "Vascular spasm or vasoconstriction is the immediate structural reflex response to blood vessel injury to limit blood loss." },
-                        { question: "Which bones form the floor of the nasal cavity & posterior part of the hard palate?", options: ["Zygomatic bones", "Lacrimal bones", "Nasal bones", "Palatine bones"], correct: 3, explanation: "The horizontal plates of the palatine bones articulate together to construct the posterior zone of the hard palate floor." },
-                        { question: "Which structural cells shield the nucleus of keratinocytes from harmful UV light?", options: ["Keratinocytes", "Melanocytes", "Merkel cells", "Langerhans' cells"], correct: 1, explanation: "Melanocytes synthesize melanin pigment granules, which accumulate over the nuclei of keratinocytes like protective umbrellas against UV radiation." },
-                        { question: "A 25-year-old RTA patient with a spinal cord injury has been admitted. Which cavity plays a role in the protection of the spinal cord?", options: ["Cranial Cavity", "Vertebral Cavity", "Thoracic Cavity", "Abdominal Cavity"], correct: 1, explanation: "The vertebral cavity (spinal canal) runs down inside the bony vertebral column to enclose and secure the delicate spinal cord tissue." }
-                    ]
-                },
-                "2023": {
-                    fon: [],
-                    anatomy: [
-                        { question: "Which muscle plays a central role in the medial rotation of the shoulder joint?", options: ["Infraspinatus", "Brachialis", "Subscapularis", "Biceps brachii"], correct: 2, explanation: "The subscapularis muscle acts as a primary internal (medial) rotator of the arm at the glenohumeral joint." },
-                        { question: "The larger opening in the lower part of each hip bone which is bounded by the parts of ischium and pubis is called the:", options: ["Greater sciatic notch", "Greater sciatic nerve", "Obturator foramen", "Lesser sciatic nerve"], correct: 2, explanation: "The obturator foramen is the large structural opening formed between the ischium and pubic bones of the pelvis." },
-                        { question: "The part of the long bone that takes part in the growth of the bone length is the:", options: ["Diaphysis", "Metaphysis", "Epiphysis", "None of the above"], correct: 1, explanation: "The metaphysis contains the epiphyseal plate (growth zone), which is directly responsible for the longitudinal growth of long bones." },
-                        { question: "Which muscle forms most of the pelvic diaphragm?", options: ["Gluteus Maximus", "Levator ani and Coccygeus", "Symphysis pubis", "Rectus abdominis"], correct: 1, explanation: "The pelvic floor or pelvic diaphragm is primarily composed of the levator ani and coccygeus muscle sheets." },
-                        { question: "A type of muscle contraction where the muscle increases tension despite a change in length is:", options: ["Eccentric contraction", "Concentric contraction", "Isotonic contraction", "Isometric contraction"], correct: 2, explanation: "Isotonic contractions involve constant muscle tension while the overall muscle length dynamically alters (covering both concentric and eccentric actions)." },
-                        { question: "Which muscle raises the eyebrows and produces transverse wrinkles across the skin of the forehead?", options: ["Frontalis", "Occipitalis", "Orbicularis oculi", "Zygomaticus major"], correct: 0, explanation: "The frontal belly of the occipitofrontalis (frontalis) muscle pulls the scalp forward, lifting the eyebrows to create forehead wrinkles." },
-                        { question: "The cell type responsible for bone breakdown and resorption in bone tissue is:", options: ["Osteocytes", "Osteoblasts", "Osteoclasts", "Lacunae"], correct: 2, explanation: "Osteoclasts are massive, multinucleated cells derived from monocytes that dissolve bone matrix during normal remodeling." },
-                        { question: "Tendons connect:", options: ["Bone to bone", "Muscle to muscle", "Muscle to bone", "Bone to cartilage"], correct: 2, explanation: "Tendons are tough bands of dense regular connective tissue that securely anchor skeletal muscles to structural bone surfaces." },
-                        { question: "Which of the following structures are linked together directly by a ligament?", options: ["Bone to bone", "Muscle to bone", "Tendon to muscle", "Cartilage to muscle"], correct: 0, explanation: "Ligaments connect bone directly to another bone to provide structural stability inside articulatory joints." },
-                        { question: "What is the term for the total amount of blood pumped out from a single ventricle with each individual heartbeat?", options: ["Cardiac output", "Stroke volume", "End-diastolic volume", "Ejection fraction"], correct: 1, explanation: "Stroke volume is specifically defined as the volume of blood ejected by one ventricle during a single systolic contraction." },
-                        { question: "Endomysium is the specialized connective tissue layer that directly surrounds:", options: ["A group of muscle fibers", "Individual muscle fibers (cells)", "Fascicles", "A group of fascicles"], correct: 1, explanation: "The endomysium wraps around every individual muscle fiber cell, separating them from neighbors within a fascicle." },
-                        { question: "The joint located between the head of a rib and the corresponding thoracic vertebral body is classified as:", options: ["Synovial", "Fibrous", "Cartilaginous", "Synarthrosis"], correct: 0, explanation: "The costovertebral joints are plane-type synovial joints that permit small gliding movements during respiration." },
-                        { question: "Only flexion and extension movements are permitted within:", options: ["Ball and socket joints", "Hinge joints", "Pivot joints", "Plane joints"], correct: 1, explanation: "Hinge joints act as uniaxial configurations restricting movement to a single axis for flexion and extension." },
-                        { question: "An excellent physiological example of a saddle-type synovial joint in the body is the:", options: ["Acromioclavicular joint", "Carpometacarpal joint of the thumb", "Metacarpophalangeal joint", "Radioulnar joint"], correct: 1, explanation: "The first carpometacarpal joint (at the base of the thumb) is the classic textbook example of a biaxial saddle joint." },
-                        { question: "The interosseous membrane found between the structural bodies of the tibia and fibula is considered what type of joint?", options: ["Synchondrosis", "Syndesmosis", "Synostosis", "Synovial"], correct: 1, explanation: "A syndesmosis is a fibrous joint where articulating bones are united via a broad sheet of dense fibrous connective tissue." },
-                        { question: "The indentation or deep cut located directly at the edge of a structural bone is known as a:", options: ["Crest", "Notch", "Protuberance", "Fossa"], correct: 1, explanation: "A notch is a clear depression or indentation along the margin or border of a bone structure." }
-                    ]
-                },
-                "2021": {
-                    fon: [],
-                    anatomy: [
-                        { question: "In a healthy adult, more than a gallon of water containing over an ounce of salt is absorbed from the intestine every 24 hours. One standard gallon is equivalent to roughly:", options: ["3.5 liters", "3.8 liters", "4.5 liters", "5.0 liters"], correct: 1, explanation: "A standard US gallon converts directly to approximately 3.78 liters (commonly rounded to 3.8L in baseline medical calculations)." },
-                        { question: "The structural lens of the human eye is a classic example of which tissue classification?", options: ["Avascular Tissue", "Vascular Tissue", "Poorly Vascular Tissue", "None of the above"], correct: 0, explanation: "The lens must remain strictly avascular (devoid of blood vessels) to maintain transparency and prevent light distortion." },
-                        { question: "A plane gliding joint is found structurally located between the:", options: ["Interphalangeal and intertarsal bones", "Intertarsal and intercarpal bones", "Intercarpal and interphalangeal bones", "Metatarsal and phalangeal bones"], correct: 1, explanation: "Gliding (plane) joints occur between the flat surfaces of individual carpal wrist bones and tarsal ankle bones." },
-                        { question: "Which directional description accurately states the normal physiological location of the heart?", options: ["Base lies at 2nd intercostal space & apex at 5th intercostal space", "Base lies at 5th intercostal space & apex at 2nd intercostal space", "Base lies at 3rd intercostal space & apex at 5th intercostal space", "Base lies at 4th intercostal space & apex at 5th intercostal space"], correct: 0, explanation: "The broad base of the heart faces superiorly at the level of the 2nd intercostal space, while its pointed apex projects inferiorly down to the 5th intercostal space." },
-                        { question: "Which of the following baseline processes operates as a positive feedback system?", options: ["Childbirth contractions", "Control of blood pressure", "Control of glucose level", "Body temperature regulation"], correct: 0, explanation: "Oxytocin release during uterine contractions in childbirth intensifies the original stimulus, representing a classic positive feedback cascade." },
-                        { question: "Which of the following contains only appendicular skeleton bones?", options: ["Ulna, radius, phalanges, scapula, fibula", "Humerus, scapula, occipital, sternum", "Clavicle, fibula, metatarsals, mandible, coxal", "Patella, ethmoid, femur, coccyx, tibia"], correct: 0, explanation: "The appendicular skeleton is composed of the upper and lower limb bones alongside the pectoral and pelvic girdles. Occipital, sternum, mandible, ethmoid, and coccyx belong to the axial skeleton." },
-                        { question: "Which structural line or area acts as the growing zone for longitudinal expansion in long bones?", options: ["Epiphysis", "Diaphysis", "Metaphysis", "Epiphyseal plate"], correct: 3, explanation: "The epiphyseal plate (hyaline cartilage zone inside the metaphysis) drives the elongation of long bones during development." },
-                        { question: "The left atrium of the human heart receives how many pulmonary veins directly?", options: ["1", "2", "3", "4"], correct: 3, explanation: "Four pulmonary veins (two superior and two inferior from both lungs) carry oxygenated blood straight into the left atrium." },
-                        { question: "Which anatomical directional term means situated nearer to the attachment point of a limb to the trunk?", options: ["Proximal", "Superior Medial", "Distal", "Inferior"], correct: 0, explanation: "Proximal describes a structure closer to the attachment point of a limb or origin of a structure." },
-                        { question: "Which of the following is a primary function of the integumentary system?", options: ["Taste processing", "Vitamin D production", "Oxygen carriage", "Active swallowing"], correct: 1, explanation: "Skin cells synthesize vitamin D precursors when exposed to ambient environmental ultraviolet (UV) radiation." },
-                        { question: "The largest structural hollow space or cavity inside the human body is the:", options: ["Cranial cavity", "Pelvic cavity", "Thoracic cavity", "Abdominal cavity"], correct: 3, explanation: "The abdominal cavity is the most expansive continuous structural ventral compartment, housing the majority of digestive systems." }
-                    ]
-                },
-                "2020": {
-                    fon: [],
-                    anatomy: [
-                        { question: "What lies directly at the MEDIAL surface of the lungs, acting as the structural site where pulmonary, bronchial, lymphatic vessels, and nerves enter and leave?", options: ["The hilum", "The helium", "The milum", "The ileum"], correct: 0, explanation: "The hilum is the distinct structural wedge-shaped depression on the medial surface of each lung serving as the root entry point." },
-                        { question: "The nasal cavity is divided into two parts by the bony nasal septum, which is largely formed by which bone inferiorly?", options: ["Inferior Conchae", "Lacrimal", "Maxilla", "Vomer"], correct: 3, explanation: "The vertical vomer bone combines with the perpendicular plate of the ethmoid to erect the structural midline nasal septum." },
-                        { question: "Which mobile single bone is found at the midline of the neck below the mandible and directly abides or sits above the larynx?", options: ["Cervical vertebrae", "Clavicle", "Hyoid", "Maxilla"], correct: 2, explanation: "The U-shaped hyoid bone sits horizontally in the mid-neck, suspended cleanly by muscles and ligaments without articulating with any other bone." },
-                        { question: "The acromial fibers of the deltoid muscle are a classic structural example of which muscle fiber arrangement?", options: ["Bipennate", "Multipennate", "Tripennate", "Unipennate"], correct: 1, explanation: "The deltoid features a multipennate architecture, where multiple diagonal muscle fibers converge obliquely onto several central tendons." },
-                        { question: "The best structural example of a saddle joint configuration in the upper extremity is the:", options: ["Condyloid joint", "Ellipsoid joint", "Hinge joint", "Carpometacarpal joint of the thumb"], correct: 3, explanation: "The first carpometacarpal joint (thumb base) is the definitive textbook standard for structural saddle articulations." },
-                        { question: "Bones that are roughly cuboidal in overall structural shape and composed primarily of cancellous (spongy) bone are:", options: ["Flat bones", "Irregular bones", "Long bones", "Short bones"], correct: 3, explanation: "Short bones (such as wrist carpals and ankle tarsals) are cuboidal structures packed with cancellous bone inside a thin outer compact shell." },
-                        { question: "Which anatomical directional term explicitly refers to a location situated on the exact same side of the body?", options: ["Anterior", "Contralateral", "Ipsilateral", "Supine"], correct: 2, explanation: "Ipsilateral means belonging to or occurring on the same side of the body (opposite of contralateral)." }
-                    ]
-                }
-            }
-        };
-
-        let chosenRegion = "";
-        let chosenYear = "";
-        let currentQuizPool = [];
-        let currentQuestionIndex = 0;
-        let scoreCorrect = 0;
-        let scoreWrong = 0;
-        let scoreSkipped = 0;
-        let hasAnswered = false;
-        let viewHistory = ['view-main'];
-
-        function navigateTo(viewId) {
-            document.querySelectorAll('.dynamic-view').forEach(v => v.classList.remove('active-view'));
-            document.getElementById(viewId).classList.add('active-view');
-            document.getElementById('back-button').style.display = (viewId === 'view-main') ? 'none' : 'block';
-            if (viewHistory[viewHistory.length - 1] !== viewId) viewHistory.push(viewId);
-        }
-
-        function selectRegion(regionKey) {
-            chosenRegion = regionKey;
-            document.getElementById('years-title').innerText = "Swat Region - Select Year";
-            navigateTo('view-years');
-        }
-
-        function selectYear(yearKey) {
-            chosenYear = yearKey;
-            document.getElementById('subjects-title').innerText = "Swat Papers (" + yearKey + ") - Subjects";
-            navigateTo('view-subjects');
-        }
-
-        function startQuiz(subjectKey) {
-            currentQuizPool = quizDatabase[chosenRegion][chosenYear][subjectKey];
-            if (!currentQuizPool || currentQuizPool.length === 0) {
-                alert("Historical paper content for this subject is being processed. It will be live right after checkout updates!");
-                return;
-            }
-            currentQuestionIndex = 0;
-            scoreCorrect = 0;
-            scoreWrong = 0;
-            scoreSkipped = 0;
-            let titleText = subjectKey === 'fon' ? "FON - I" : "Anatomy & Physiology";
-            document.getElementById('quiz-title').innerText = titleText + " (" + chosenYear + ")";
-            navigateTo('view-quiz');
-            loadQuestion();
-        }
-
-        function loadQuestion() {
-            hasAnswered = false;
-            document.getElementById("skip-button").style.display = "block";
-            document.getElementById("next-button").style.display = "none";
-            document.getElementById("explanation-box").style.display = "none";
-            let currentData = currentQuizPool[currentQuestionIndex];
+def run_quiz(subject_name):
+    questions = QUESTION_BANK[subject_name]
+    score = 0
+    total = len(questions)
+    
+    print(f"\n🚀 Starting Quiz: {subject_name}")
+    print(f"Total verified questions loaded: {total}\n" + "-" * 50)
+    
+    for idx, q in enumerate(questions, 1):
+        print(f"\nQ.{idx} [Year: {q['year']}] {q['question']}")
+        for opt_letter, opt_text in sorted(q['options'].items()):
+            print(f"  {opt_letter}. {opt_text}")
             
-            let displayedNum = currentQuestionIndex + 1;
-            if(chosenRegion === 'swat' && chosenYear === '2024' && quizDatabase.swat["2024"].anatomy.includes(currentData)) {
-                displayedNum = currentQuestionIndex + 35; 
-            }
+        while True:
+            user_choice = input("\n👉 Enter your answer (A, B, C, or D): ").strip().upper()
+            if user_choice in ['A', 'B', 'C', 'D']:
+                break
+            print("❌ Invalid entry! Please enter A, B, C, or D.")
+            
+        if user_choice == q['answer']:
+            print("✅ CORRECT!")
+            score += 1
+        else:
+            print(f"❌ INCORRECT! The correct answer was: {q['answer']}")
+            
+        print(f"💡 Explanation: {q['explanation']}")
+        print("-" * 50)
+        
+    print(f"\n🏁 Quiz Completed!")
+    print(f"Your Score: {score}/{total} ({round((score/total)*100, 2)}%)")
+    input("\nPress Enter to return to the Main Menu...")
 
-            document.getElementById("question-text").innerText = `${displayedNum}. ${currentData.question}`;
-            let optionsContainer = document.getElementById("options-container");
-            optionsContainer.innerHTML = "";
-            currentData.options.forEach((option, index) => {
-                let button = document.createElement("button");
-                button.className = "option-btn";
-                button.innerText = option;
-                button.onclick = () => checkAnswer(index, button);
-                optionsContainer.appendChild(button);
-            });
-        }
+def main():
+    while True:
+        display_quiz_menu()
+        choice = input("Select a subject number to practice: ").strip()
+        
+        if choice == '0':
+            print("\n👋 Good luck with your studies and website development! Goodbye.")
+            sys.exit()
+            
+        subjects = list(QUESTION_BANK.keys())
+        if choice.isdigit() and 1 <= int(choice) <= len(subjects):
+            selected_subject = subjects[int(choice) - 1]
+            run_quiz(selected_subject)
+        else:
+            print("\n❌ Invalid choice! Please select a valid option from the menu.\n")
 
-        function checkAnswer(selectedIndex, clickedButton) {
-            if (hasAnswered) return;
-            hasAnswered = true;
-            document.getElementById("skip-button").style.display = "none";
-            let currentData = currentQuizPool[currentQuestionIndex];
-            let correctIndex = currentData.correct;
-            let allButtons = document.querySelectorAll(".option-btn");
-            allButtons.forEach(btn => btn.disabled = true);
-            if (selectedIndex === correctIndex) {
-                clickedButton.classList.add("correct");
-                scoreCorrect++;
-            } else {
-                clickedButton.classList.add("wrong");
-                allButtons[correctIndex].classList.add("correct");
-                scoreWrong++;
-            }
-            let expBox = document.getElementById("explanation-box");
-            expBox.innerText = "Explanation: " + currentData.explanation;
-            expBox.style.display = "block";
-            document.getElementById("next-button").style.display = "block";
-        }
-
-        function skipQuestion() {
-            scoreSkipped++;
-            nextQuestion();
-        }
-
-        function nextQuestion() {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < currentQuizPool.length) {
-                loadQuestion();
-            } else {
-                showResults();
-            }
-        }
-
-        function showResults() {
-            navigateTo('view-results');
-            document.getElementById("stat-correct").innerText = scoreCorrect;
-            document.getElementById("stat-wrong").innerText = scoreWrong;
-            document.getElementById("stat-skipped").innerText = scoreSkipped;
-            let percentage = (scoreCorrect / currentQuizPool.length) * 100;
-            let note = "";
-            if (percentage === 100) note = "🏆 Perfect Score! Master-level knowledge.";
-            else if (percentage >= 80) note = "🌟 Great Job! Highly solid grip on this exam.";
-            else if (percentage >= 50) note = "📖 Good Attempt! Review your errors to score higher.";
-            else note = "⚠️ Try Harder! Read the explanations and retry.";
-            document.getElementById("feedback-message").innerText = note;
-        }
-
-        function returnToDashboard() {
-            viewHistory = ['view-main'];
-            navigateTo('view-main');
-        }
-
-        function goBack() {
-            if (viewHistory.length <= 1) return;
-            viewHistory.pop();
-            let previousView = viewHistory[viewHistory.length - 1];
-            document.querySelectorAll('.dynamic-view').forEach(v => v.classList.remove('active-view'));
-            document.getElementById(previousView).classList.add('active-view');
-            document.getElementById('back-button').style.display = (previousView === 'view-main') ? 'none' : 'block';
-        }
-
-        /* SANDBOX SCRIPTS */
-        function logWorkout() {
-            let val = document.getElementById("reps-input").value;
-            if(val) {
-                document.getElementById("workout-log-msg").innerText = "💥 Boom! " + val + " reps logged. Clean execution!";
-                document.getElementById("reps-input").value = "";
-            }
-        }
-
-        function generateVideoIdea() {
-            const prompts = [
-                "🎥 Day 1 of 7-Day Mobile Phone Detox: Record your immediate reaction, feelings of phantom vibrations, and study focus changes.",
-                "🎥 Mid-Challenge Vlog: Film the setup of your clean study space and your home callisthenics setup. Show how you spend your extra free hours.",
-                "🎥 The 7-Day Results: Breakdown how your sleep cycles, skin focus, and textbook memorization speed skyrocketed without scrolling fatigue.",
-                "🎥 Study Hack Video: Explain one tricky Anatomy MCQ layout visually to your audience using simple text layouts."
-            ];
-            let randomPrompt = prompts[Math.floor(Math.random() * prompts.length)];
-            document.getElementById("video-idea-box").innerText = randomPrompt;
-        }
-
-        function checkCrypto(isShortsPay) {
-            let ansBox = document.getElementById("crypto-ans");
-            if(isShortsPay) {
-                ansBox.style.color = "#22c55e";
-                ansBox.innerText = "🎯 Correct! When funding rates are negative, shorts pay long positions directly to balance out leverage options.";
-            } else {
-                ansBox.style.color = "#ef4444";
-                ansBox.innerText = "❌ Incorrect. If rates are deeply negative, aggressive shorts must pay the longs!";
-            }
-        }
-    </script>
-</body>
-</html>
+if __name__ == "__main__":
+    main()
