@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nursing Past Papers Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header Section -->
+        <header>
+            <h1>Nursing Past Papers Portal</h1>
+            <p>Select a subject to test your knowledge</p>
+        </header>
+
+        <!-- Home Screen: Subject Selection -->
+        <div id="home-screen" class="card">
+            <h2>Available Past Papers</h2>
+            <div class="subject-grid">
+                <button class="btn-subject" onclick="startQuiz('fon')">Fundamentals of Nursing (FON)</button>
+                <button class="btn-subject" onclick="startQuiz('anatomy')">Anatomy & Physiology</button>
+            </div>
+        </div>
+
+        <!-- Quiz Screen: Initially Hidden -->
+        <div id="quiz-screen" class="card hidden">
+            <div class="quiz-header">
+                <span id="subject-title">Subject</span>
+                <span id="progress">Question 1 of 10</span>
+            </div>
+            
+            <div id="question-container">
+                <h3 id="question-text">Loading question...</h3>
+                <div id="options-container" class="options-list">
+                    <!-- JavaScript will insert option buttons here -->
+                </div>
+            </div>
+
+            <div class="quiz-footer">
+                <button id="skip-btn" class="btn btn-secondary" onclick="nextQuestion()">Skip Question</button>
+            </div>
+        </div>
+
+        <!-- Result Screen: Initially Hidden -->
+        <div id="result-screen" class="card hidden">
+            <h2>Quiz Completed!</h2>
+            <div class="score-display">
+                <p>Your Final Score:</p>
+                <h3 id="final-score">0 / 0</h3>
+            </div>
+            <button class="btn btn-primary" onclick="showHomeScreen()">Back to Home</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
